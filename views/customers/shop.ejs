@@ -1,0 +1,401 @@
+<%- include('../layouts/header.ejs') %>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+   
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <%- include('../layouts/nav.ejs') %>
+    
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action>
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?" name="search">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                       
+                            
+                        <h2>Products</h2>
+                       
+							
+                        
+
+
+                        <div class="breadcrumb__option">
+                            <a href="./index.html"></a>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-5">
+                    <div class="sidebar">
+                        <div class="sidebar__item">
+                            <h4>Department</h4>
+                            <ul>
+                                <% if (category.length>0) {
+                                    for(let i=0;i<category.length;i++) { %>
+                                <li><a href="/category?id=<%= category[i]._id %>"><%= category[i].name %></a></li>
+                                <% } %>
+                                <% } else {%>
+                                  <tr>
+                                    <td colspan="5">Products not found</td>
+              
+                                  </tr>
+                                 <% } %>
+                            </ul>
+                        </div>
+                        <div class="sidebar__item">
+                            <h4>Sort</h4>
+                            <a onclick="sortHtoL()"><div class="sidebar__item__size">
+                              <label for="Low to high">
+                                    Low - High
+                                    <input type="radio" id="large">
+                                </label>
+                        
+                            </div>
+                        </a>
+                         
+                        <a onclick="sortLtoH()"><div class="sidebar__item__size">
+                                <label for="tiny">
+                                    High - Low
+                                    <input type="radio" id="tiny">
+                                </label>
+                            </div></a>
+                        </div>
+                       
+                        
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-7">
+                    
+                        <div class="section-title product__discount__title">
+                            <h2>All products</h2>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="categories__slider owl-carousel">
+                           
+                            
+                        </div>
+                            
+                        </div>
+                   
+                    <div class="filter__item">
+                        <div class="row">
+                            
+                         
+                        </div>
+                    </div>
+                    <div class="row" id="SortArea">
+                         <% if (product) {
+                            for(let i=0;i<product.length;i++) { %>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                    <td><img style="height:16rem;width:20rem;" src="/productimage/<%= product[i].Image[0] %>" alt="<%= product[i].Image[0] %>"></td>
+                                    <ul class="product__item__pic__hover">
+                                        <li><a onclick="addwishlist('<%= product[i]._id %>')"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/view-product?id=<%= product[i]._id %>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a  onclick="addcart('<%= product[i]._id %>')"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#"><%= product[i].name %></a></h6>
+                                    <h5>Rs.<%= product[i].price %></h5>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <% } %>
+                                    <% } else {%>
+                                      <tr>
+                                        <td colspan="5">products not found</td>
+                  
+                                      </tr>
+                                     <% } %>
+                       
+                     
+                              
+                        
+                        
+                       
+                       
+                       
+                       
+                       
+                       
+                        
+                        
+                    </div>
+                    <div class="product__pagination">
+                        <%
+                        for(let j = 1;j<=totalPages;j++){
+                            %>
+                            <a href="?page=<%= j %>"><%= j %></a>
+                            <%
+                        } 
+                        %>
+                        
+                       
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Footer Section Begin -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script>
+        function sortHtoL(){
+            $.ajax({
+                url:'/sortH',
+                method:'get',
+                success:function(response){
+                    let sortArea = document.getElementById('SortArea')
+                    let html=null
+                    product=response.product
+                    product.forEach(element => {
+                    if(html==null){
+                        html=`
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                    <td><img style="height:16rem;width:20rem;" src="/productimage/${element.Image[0]}" alt="${element.Image}"></td>
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/view-product?id=${element._id}"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">${element.name}</a></h6>
+                                    <h5>Rs.${element.price}</h5>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        `
+                    } else {
+                        html+=`<div class="col-lg-4 col-md-6 col-sm-6">
+                            
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                    <td><img style="height:16rem;width:20rem;" src="/productimage/${element.Image[0]}" alt="${element.Image[0]}"></td>
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/view-product?id=${element._id}"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">${element.name}</a></h6>
+                                    <h5>Rs.${element.price}</h5>
+                                </div>
+                            </div>
+                        
+                        </div>`
+                    }
+
+                    
+
+                  
+                     
+                       
+                     
+
+
+                })
+                sortArea.innerHTML=html
+
+                }
+            
+            })
+
+        }
+
+        function sortLtoH(){
+            $.ajax({
+                url:'/sortL',
+                method:'get',
+                success:function(response){
+                    let sortArea = document.getElementById('SortArea')
+                    let html=null
+                    product=response.product
+                    product.forEach(element => {
+                    if(html==null){
+                        html=`
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                    <td><img style="height:16rem;width:20rem;" src="/productimage/${element.Image[0]}" alt="${element.Image}"></td>
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/view-product?id=${element._id}"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">${element.name}</a></h6>
+                                    <h5>Rs.${element.price}</h5>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        `
+                    } else {
+                        html+=`<div class="col-lg-4 col-md-6 col-sm-6">
+                            
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                    <td><img style="height:16rem;width:20rem;" src="/productimage/${element.Image[0]}" alt="${element.Image[0]}"></td>
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/view-product?id=${element._id}"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">${element.name}</a></h6>
+                                    <h5>Rs.${element.price}</h5>
+                                </div>
+                            </div>
+                        
+                        </div>`
+                    }
+
+                    
+
+                  
+                     
+                       
+                     
+
+
+                })
+                sortArea.innerHTML=html
+
+                }
+            
+            })
+
+        }
+        function addwishlist(productId){
+         $.ajax({
+        
+             url:`add-wishlist/${productId}`,
+             method:'get',
+             success:function(response){
+                const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'added to wishlist'
+                                })
+          
+             }
+         })
+        }
+
+        // add cart 
+        function addcart(productId){
+            $.ajax({
+                url:`add-cart/${productId}`,
+                method:'get',
+             success:function(response){
+                const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'added to cart'
+                                })
+             }
+                
+            })
+        }
+
+        </script>
+
+        </script>
+  
+
+    <!-- Js Plugins -->
+    <%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,162 @@
+<%- include('../layouts/adminheader.ejs') %>
+
+
+<form action="/admin/export-sales"  method="post">
+    <div class="container mb-3">
+        <span class="ms-3" style="color: azure;">from<input type="date" class="ms-3" name="from" id="from" placeholder="">To:<input type="date" class="ms-3" id="to" name="to" `><button style="font-size: 11px; margin-left: 1rem;" type="submit">download</button></span></form>
+        <span class="" style="color: azure;"><button style="font-size: 11px; margin-left: 1rem;" type="button"  onclick="change()">submit</button></span>
+        <!-- <a href="/admin/export-sales" onclick="">Download</a> -->
+     </div>
+
+  
+
+    <div class="container">
+        <% if(typeof message !=='undefined'){ %>
+    <p style="color: rgb(255, 0, 0);"> <%= message %></p>
+    <% } %>
+    </div>
+
+<div class="container">
+  
+    <!-- row -->
+    
+       
+        <div class="col-12 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                <h2 class="tm-block-title">Sales List</h2>
+                <table class="table">
+                    <thead>
+                        <tr> <th scope="col">no.</th>
+                            <th scope="col">ORDER_id</th>
+                           
+                            <th scope="col"> PAYMENT_STATUS</th>
+                            <th scope="col"> PAYMENT_METHOD</th>
+                            <th scope="col">ORDER_DATE</th>
+                            <th scope="col">TOTAL</th>
+                            
+                        
+                        </tr>
+                    </thead>
+                    
+                    <tbody  id="sales-report">
+                       
+                      
+                        <% if(report.length>0 ) {
+                            for(i=0;i<report.length;i++){
+
+                         %>
+                        <tr>
+                            <td><%=[i+1] %>
+                            <td><b><%= report[i]._id%><br>
+                           
+                          
+                            
+                            
+                            <td><b><%= report[i].payment_status %></b></td>
+                            <td><b><%= report[i].payment_method %></b></td>
+                           
+                            <td><%= report[i].created_date %></td>
+                            <td><%= report[i].total %></td>
+                        </tr>
+                        <% } %>
+                        <td><b></b></td>
+                            <td><b></b></td>
+                            <td><b></b></td>
+                            <td><b></b></td>
+                            <td><b>Total</b></td>
+                            
+                            <td style="color: red
+                            ;"><%= totalprice %></td>
+                      
+                        <% } else { %>
+                            <tr>
+                                <td>no sales found</td>
+                                </tr>
+                                <% } %>
+                        
+                       
+                                
+                       
+                       
+                        
+                        
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+ function change() {
+
+
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    console.log(from,to,"y are you not coming")
+
+
+    $.ajax({
+    url: '/admin/sales-report',
+    type: 'post',
+    data: {from, to},
+    success: function(response) {
+      if (response.success === 'sales') {
+        const report = response.report;
+        const totalprice = response.totalprice;
+
+        const salesReportTable = document.getElementById("sales-report");
+        salesReportTable.innerHTML = "";
+
+        if (report.length > 0) {
+          for (let i = 0; i < report.length; i++) {
+            const newRow = salesReportTable.insertRow(-1);
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            const cell6 = newRow.insertCell(5);
+
+            cell1.innerHTML = i + 1;
+            cell2.innerHTML = report[i]._id;
+            cell3.innerHTML = report[i].payment_status;
+            cell4.innerHTML = report[i].payment_method;
+            cell5.innerHTML = report[i].created_date;
+            cell6.innerHTML = report[i].total;
+          }
+
+          const totalRow = salesReportTable.insertRow(-1);
+          const cell7 = totalRow.insertCell(0);
+          const cell8 = totalRow.insertCell(1);
+          const cell9 = totalRow.insertCell(2);
+          const cell10 = totalRow.insertCell(3);
+          const cell11 = totalRow.insertCell(4);
+          const cell12 = totalRow.insertCell(5);
+
+          cell7.innerHTML = "";
+          cell8.innerHTML = "";
+          cell9.innerHTML = "";
+          cell10.innerHTML = "";
+          cell11.innerHTML = "Total";
+          cell12.innerHTML = totalprice;
+        } else {
+          const newRow = salesReportTable.insertRow(-1);
+          const cell1 = newRow.insertCell(0);
+          cell1.colSpan = 6;
+          cell1.innerHTML = "No sales found";
+        }
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.error(errorThrown);
+    }
+  });
+}
+   
+
+</script>
+
+
+<%- include('../layouts/adminfooter.ejs') %>

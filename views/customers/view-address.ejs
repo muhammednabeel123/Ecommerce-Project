@@ -1,0 +1,70 @@
+<%- include('../layouts/header.ejs') %>
+<%- include('../layouts/nav.ejs') %>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-2 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"></div>
+        </div>
+        
+        <div class="col-md-8 border-right">
+            <h4 class="text-left">Manage Address</h4>
+            <div class="p-3 py-5">
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    
+                </div>
+                
+                <% if (address.length>0) {
+                    for(let i=0;i<address.length;i++) { %>
+                        
+                        <div class="row mt-1">
+   
+        <div class="alert alert-success h-100 " role="alert">
+            <ul style="text-decoration: none;">
+                <li style="list-style: none;"><span>Address: </span><%= address[i].address1 %></li>
+                <li style="list-style: none;"><span>Country: </span><%= address[i].country %></li>
+                <li style="list-style: none;"><span>State: </span><%= address[i].state %></li>
+                <li style="list-style: none;"><span>District: </span><%= address[i].district %></li>
+                <li style="list-style: none;"><span>Street: </span><%= address[i].street %></li>
+                <li style="list-style: none;"><span>Postal Code: </span><%= address[i].postalcode %></li>
+                <li style="list-style: none;" class="mt-4">
+                    <a href="/delete-address/?id=<%= address[i]._id %>"><button type="button" class="btn btn-danger float-right mx-2 mb-2">DELETE</button></a>
+                    <a href="/edit-addresses/?id=<%= address[i]._id %>"><button type="button" class="btn btn-primary float-right me-1 mb-2">EDIT</button></span></a>
+                   
+                </li>
+            </ul>
+        </div>
+    </a>
+</div>
+
+                <% } %>
+							<% } else {%>
+							  <tr>
+								<td colspan="5"> address found</td>
+		  
+							  </tr>
+							 <% } %>
+                <div class="row mt-3">
+             
+                </div>
+               
+             
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+</div>
+</div>
+
+  
+
+
+    </div>
+    </div>
+
+
+
+<%- include('../layouts/footer.ejs') %>

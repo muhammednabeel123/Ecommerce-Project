@@ -1,0 +1,1083 @@
+<%- include('../layouts/header.ejs') %>
+  <!-- Page Preloder -->
+
+  <!-- Humberger Begin -->
+  <style>
+      /* === removing default button style ===*/
+.button {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* button styling */
+.button {
+  --border-right: 6px;
+  --text-stroke-color: rgba(29, 29, 29, 0.6);
+  --animation-color:#7fad39;
+  --fs-size: 1.5em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+/* this is the text, when you hover on button */
+.hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+}
+/* hover */
+.button:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--animation-color))
+}
+        .box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+.group {
+ position: relative;
+}
+
+.input {
+ font-size: 16px;
+ padding: 10px 10px 10px 5px;
+ display: block;
+ width: 200px;
+ border: none;
+ border-bottom: 1px solid #515151;
+ background: transparent;
+}
+
+.input:focus {
+ outline: none;
+}
+
+/* label {
+ color: #999;
+ font-size: 18px;
+ font-weight: normal;
+ position: absolute;
+ pointer-events: none;
+ left: 5px;
+ top: 10px;
+ transition: 0.2s ease all;
+ -moz-transition: 0.2s ease all;
+ -webkit-transition: 0.2s ease all;
+} */
+
+.input:focus ~ label, .input:valid ~ label {
+ top: -20px;
+ font-size: 14px;
+ color: #5264AE;
+}
+
+/* .bar {
+ position: relative;
+ display: block;
+ width: 200px;
+} */
+
+.bar:before, .bar:after {
+ content: '';
+ height: 2px;
+ width: 0;
+ bottom: 1px;
+ position: absolute;
+ background: #5264AE;
+ transition: 0.2s ease all;
+ -moz-transition: 0.2s ease all;
+ -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+ left: 50%;
+}
+
+.bar:after {
+ right: 50%;
+}
+
+.input:focus ~ .bar:before, .input:focus ~ .bar:after {
+ width: 50%;
+}
+
+.highlight {
+ position: absolute;
+ height: 60%;
+ width: 100px;
+ top: 25%;
+ left: 0;
+ pointer-events: none;
+ opacity: 0.5;
+}
+
+.input:focus ~ .highlight {
+ animation: inputHighlighter 0.3s ease;
+}
+
+@keyframes inputHighlighter {
+ from {
+  background: #5264AE;
+ }
+
+ to {
+  width: 0;
+  background: transparent;
+ }
+}
+
+/* Radio button styling */
+
+
+
+
+    </style>
+
+  <!-- Humberger End -->
+
+  <!-- Header Section Begin -->
+  <%- include('../layouts/nav.ejs') %>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+
+  </section>
+  <!-- Breadcrumb Section End -->
+
+  <!-- Checkout Section Begin -->
+  <section class="checkout spad">
+
+    <div class="container">
+
+      <div class="row">
+        <div>
+          <div class="card">
+            <div class="card2">
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-lg-12">
+
+        </div>
+      </div>
+
+      <div class="checkout__form">
+        <h4>Billing Details</h4>
+        <div>
+          <div class="row">
+
+            <div class="col-lg-8 col-md-6">
+              <div class="row">
+
+
+                <div class="col-lg-6">
+                  <div class="checkout__input">
+                    <p>First Name<span>*</span></p>
+                    <input type="text" name="fname" id="fname" value="<%=
+                      user.address[0].fname%>" required>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="checkout__input">
+                    <p>Last Name<span></span></p>
+                    <input type="text" id="lname" name="lname" value="<%=
+                      user.address[0].lname%>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="checkout__input">
+                <p>Country<span>*</span></p>
+                <input type="text" name="country" id="country" value="<%=
+                  user.address[0].country%>" required>
+              </div>
+              <div class="checkout__input">
+                <p>Address<span>*</span></p>
+                <input type="text" placeholder="Street Address"
+                  class="checkout__input__add" name="address" id="address"
+                  value="<%= user.address[0].address1%>">
+
+                <br>
+
+
+              </div>
+              <div class="checkout__input">
+                <p>Town/City<span>*</span></p>
+                <input type="text" name="city" id="city" value="<%=
+                  user.address[0].city%>">
+              </div>
+              <div class="checkout__input">
+                <p>State<span>*</span></p>
+                <input type="text" name="state" id="state" value="<%=
+                  user.address[0].state%>">
+              </div>
+              <div class="checkout__input">
+                <p>Postcode / ZIP<span>*</span></p>
+                <input type="text" name="postalcode" id="postalcode" value="<%=
+                  user.address[0].postalcode%>">
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="checkout__input">
+                    <p>Phone<span>*</span></p>
+                    <input type="text" name="phone" id="mobile" value="<%=
+                      user.address[0].mobile%>">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="checkout__input">
+                    <p>Email<span>*</span></p>
+                    <input type="text" name="email" id="email" value="<%=
+                      user.address[0].email%>">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="group" style="position: relative;">
+                <input required type="text" class="input" id="coupen"
+                  style="display: inline-block; width: 70%; vertical-align:
+                  top;" placeholder="COUPEN">
+                <button data-text="Awesome" class="button"
+                  onclick="coupenApply()" style="display: inline-block; width:
+                  28%; position: absolute; top: 0; right: 0;">
+                  <span class="actual-text">&nbsp;APPLY&nbsp;</span>
+                  <span class="hover-text" aria-hidden="true">&nbsp;APPLY&nbsp;</span>
+                </button>
+              </div>
+
+              <div class="checkout__order mt-3">
+                <h4>Your Order</h4>
+                <div class="checkout__order__products">Products <span>Total</span></div>
+                <ul> <% if ( product.length>0) {
+
+                    for(let i=0;i<product.length;i++) {
+                      %>
+
+
+                      <li><%= product[i].name %>(<%= cartItem[i].quantity %>)<span>&#X20B9;<%=
+                                cartItem[i].pricetotal%></span></li>
+                            <% } %>
+
+                            </ul>
+
+                            <% } else {%>
+                              <tr>
+                                <td colspan="5">No products</td>
+
+                              </tr>
+                              <% } %>
+                                <div class="checkout__order__subtotal">Discount
+                                  <span>&#X20B9;<span id="discount"> </span></span></div>
+                                <div class="checkout__order__total">Sub Total<%
+                                    let price=0; %>
+                                    <% for(let j=0;j<product.length;j++) { %>
+                                      <% price +=cartItem[j].pricetotal; %>
+                                        <% } %><input type="number" name="total"
+                                            style="background-color: #f5f5f5;
+                                            border: none; width: 60px;"><span>&#X20B9;<span
+                                              id="total"><%= price %></span></span></div>
+                                          <div class="checkout__order__total">Total<span>&#X20B9;<span
+                                                id="subtotal"><%= price %></span></span>
+                                            </div>
+
+                                            <div class="checkout__order__total"
+                                              style=" display: none">Total<span>&#X20B9;<span
+                                                  id="total"><%= price %></span></span>
+                                              </div>
+                                              <input id="subtotal2"
+                                                style="display: none;" value="<%=
+                                                price %>"></span></span>
+
+                                          <% if(user.wallet> 0) { %>
+                                            <div style="width: 3 rem; height: 2
+                                              rem; color: #1c1d1b;
+                                              background-color:white;"
+                                              class="mb-3">
+                                              <input type="checkbox" id="wallet"
+                                                name="wallet" value="wallet"
+                                                onclick="handleCheckboxClick()">
+                                              use your wallet amount <span
+                                                class="ms-3">&#X20B9 </span>
+                                              <span id="money"><%= user.wallet
+                                                  %></span><span id="money1"
+                                                  style="display: none;"><%=
+                                                    user.wallet %></span>
+                                                  <input id="money2"
+                                                    style="display: none;"
+                                                    value="0"></span></span>
+                                              <input id="money3" style="display:
+                                                none;" value="0"></span></span>
+                                          <span class="checkmark"></span></div>
+                                        <% } %>
+
+
+                                          <div id="payment">
+                                            <div class="checkout__input__radio">
+                                              <input type="radio"
+                                                id="cashOnDelivery"
+                                                name="checkbox" value="Cash on
+                                                Delivery">
+                                              <label for="cashOnDelivery">Cash
+                                                on Delivery</label>
+                                            </div>
+
+                                            <div class="checkout__input__radio">
+                                              <input type="radio" id="razorPay"
+                                                name="checkbox"
+                                                value="RazorPay(UPI)">
+                                              <label for="razorPay">RazorPay(UPI)</label>
+                                            </div>
+
+                                          </div>
+
+                                          <div id="fullWallet" style="display:
+                                            none;">
+                                            <div class="checkout__input__radio">
+                                              <input type="radio"
+                                                id="fullWallet" name="checkbox"
+                                                value="fullWallet">
+                                              <label for="razorPay">Wallet</label>
+                                            </div>
+                                          </div>
+
+
+
+
+                                          <button onclick=" orderSubmit() "
+                                            class="site-btn">PLACE ORDER</button>
+                                        </div>
+
+                                      </div>
+                                      <div class="container">
+                                        <div class="row"> <% if(address) { %>
+                                            <% for(i=0;i<address.length;i++) {
+                                              %>
+                                              <div class="col-sm-4">
+                                                <div class="card">
+                                                  <div class="card-header">
+                                                    <h3>Address <%= [i+1] %></h3>
+                                                    </div>
+                                                    <div class="card-body">
+                                                      <span><p id="fname<%= i+1
+                                                          %>"><%=
+                                                            address[i].fname %></p><p
+                                                            id="lname<%= i+1 %>"><%=
+                                                              address[i].lname
+                                                              %></p></span><p
+                                                            id="nametest<%= i+1
+                                                            %>"><%=
+                                                              address[i].address1
+                                                              %></p><br><p
+                                                              id="country<%= i+1
+                                                              %>"><%=
+                                                                address[i].country
+                                                                %></p><br><p
+                                                                id="state<%= i+1
+                                                                %>"><%=
+                                                                  address[i].state
+                                                                  %></p><br>
+                                                                <p
+                                                                  id="postalcode<%=
+                                                                  i+1 %>"><%=
+                                                                    address[i].postalcode
+                                                                    %></p><p
+                                                                    id="city<%=
+                                                                    i+1 %>"><%=
+                                                                      address[i].city
+                                                                      %></p>
+                                                                    <p
+                                                                      id="mobile<%=
+                                                                      i+1 %>"><%=
+                                                                        address[i].mobile
+                                                                        %></p><p
+                                                                        id="email<%=
+                                                                        i+1 %>"><%=
+                                                                          address[i].email
+                                                                          %></p>
+                                                                        <div
+                                                                          class="form-check">
+                                                                          <input
+                                                                            class="form-check-input"
+                                                                            onclick="order()"
+                                                                            input
+                                                                            type="radio"
+                                                                            id="radio"
+                                                                            value="<%=
+                                                                            i+1
+                                                                            %>"
+                                                                          name="radio"
+                                                                          >
+                                                                          <label
+                                                                            class="form-check-label"
+                                                                            for="box1"
+                                                                            name="box">
+                                                                            Select
+                                                                          </label>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <% } } %>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div>
+                                                            </div>
+                                                          </div>
+
+                                                        </div>
+                                                      </div>
+
+                                                    </section>
+                                                    <!-- Checkout Section End -->
+                                                    <!-- Footer Section Begin -->
+                                                    <script>
+
+
+  function orderSubmit(){
+    console.log("its not working")
+    const price = document.getElementById("subtotal").textContent
+    console.log(price,"hey orice")
+    const totalPrice = Math.ceil(parseFloat(document.getElementById("subtotal").textContent));
+    const money = Math.ceil(parseFloat(document.getElementById("money").textContent));
+
+   console.log(totalPrice,"this is total price")
+    const paymentChecked = document.querySelectorAll('input[name="checkbox"]:checked')
+    const address = document.getElementById('address').value
+    const country = document.getElementById("country").value
+     const state = document.getElementById("state").value
+    const postalcode = document.getElementById('postalcode').value
+     const mobile = document.getElementById('mobile').value
+     const email = document.getElementById('email').value
+     const city = document.getElementById('city').value
+    const fname = document.getElementById('fname').value
+     const lname = document.getElementById('lname').value
+    // console.log(mobile,email,city,fname,lname,"hey mobile")
+     
+  
+  //  console.log(address,country,state,postalcode,
+  //  mobile,email,city,fname,lname,"printed")
+
+
+let checkbox; 
+paymentChecked.forEach((radio)=>{
+  if (radio.checked) {
+    checkbox = radio.value
+    console.log(checkbox)
+  
+    
+    
+  }
+})
+ if(checkbox){
+  coupen =  document.getElementById('coupen').value
+  
+  
+ 
+  $.ajax({
+    url:'/checkout',
+    method:'post',
+    data:{
+      total:totalPrice,
+      payment_method:checkbox,
+      address:address,
+      state:state,
+      country:country,
+      postalcode:postalcode,mobile:mobile,email:email,city:city,fname:fname,lname:lname,coupen:coupen,totalPrice:totalPrice,money:money
+
+
+    },
+    success:function(response){
+      if(response.success == "Cash on Delivery"){
+        location.href = '/confirm-order'
+      }
+      else if(response.success == "RazorPay(UPI)"){
+        MyPayment() 
+
+      }
+      else if(response.success == "fullWallet"){
+            location.href = '/confirm-order'
+      }
+      else{
+        alert('Something went Wrong')
+      }
+    }
+  })
+
+
+ }else{const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'warning',
+                                title: 'PLEASE SELECT A OPTION'
+                                })
+                
+
+ }
+}
+
+//wallet function
+
+function handleCheckboxClick() {
+  // Get the checkbox element
+  let checkbox = document.getElementById("wallet");
+  let money =  document.getElementById('money').textContent
+  let money1 =  document.getElementById('money1').textContent
+  let price1 = document.getElementById("total").textContent
+  let price = document.getElementById("subtotal").textContent
+  let subtotal2 = parseInt(document.getElementById("subtotal2").value)
+  let total1 = document.getElementById("total").textContent
+  let money3 = document.getElementById("money3").value
+  console.log(subtotal2)
+  console.log(typeof(subtotal2))
+  money = parseInt(money);
+  money1 = parseInt(money1);
+  price1 = parseInt(price1);
+  price = parseInt(price);
+  total1 = parseInt(total1);
+  money3 = parseInt(money3)
+
+
+  console.log(typeof total1)
+  console.log(money1)
+  console.log(total1)
+  // const total = price - money 
+
+  let total;
+  if(money > price ){
+    total = money1 - price 
+    console.log(total,"total")
+    console.log(price,"price")
+    console.log(money,"this is money")
+    walletTotal = total  
+    console.log(walletTotal)
+    document.getElementById("subtotal").textContent = 0
+    document.getElementById("subtotal2").value = 0
+    document.getElementById('money').textContent = walletTotal
+    
+    
+  }else if (total1 > money1 ){
+    console.log("is it comming")
+    total = price - money 
+    document.getElementById("subtotal").textContent = total
+    document.getElementById("subtotal2").value = total
+   
+    console.log(total,"this is total")
+    document.getElementById("money").textContent = 0
+    document.getElementById('money2').value = total
+  }
+  else if(price == money){
+    document.getElementById("money").textContent = 0
+    document.getElementById("subtotal").textContent = 0
+
+  }
+  
+  // Check if the checkbox is checked
+  if (checkbox.checked) {
+    let total = document.getElementById('subtotal').textContent
+    let wallet = parseInt(document.getElementById('money1').textContent)
+    if (total == 0 && checkbox.checked ) {
+    document.getElementById("payment").style.display = "none";
+    document.getElementById("fullWallet").style.display = "block"
+    }
+   
+
+    let money =  document.getElementById('money').textContent
+
+   
+    $.ajax({
+      url: '/wallet-apply', // replace with the URL of your server-side script that generates the order ID
+      method: 'post',
+      dataType: 'json',
+      data:{money:money,price:price,total1:total1,money1:money1},
+      success:function(response){
+
+      }
+
+    })
+    
+  
+   
+  } else {
+   
+
+      document.getElementById("payment").style.display = "block";
+      document.getElementById("fullWallet").style.display = "none"
+
+
+    
+
+    if(total > 0 ){
+      document.getElementById("subtotal").textContent = total1 - money3
+      document.getElementById("subtotal2").value = total1 - money3
+      document.getElementById("money").textContent = money1
+
+    }else{
+    
+     
+      document.getElementById("subtotal").textContent = total1 - money3
+      document.getElementById("subtotal2").value = total1 - money3
+      document.getElementById("money").textContent = money1
+
+
+    }
+    $.ajax({
+      url: '/wallet-notApply', // replace with the URL of your server-side script that generates the order ID
+      method: 'post',
+      dataType: 'json',
+      data:{money:money1},
+      success:function(response){
+
+      }
+
+    })
+    
+
+  
+   
+    
+  }
+}
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+  function MyPayment() {
+  
+
+  const price = document.getElementById("subtotal")
+  console.log(price,"total")
+ const totalPrice = price.textContent
+  var orderId;
+  var amount = totalPrice;
+  
+
+
+console.log('ji')
+
+$.ajax({
+  url: '/create_order', // replace with the URL of your server-side script that generates the order ID
+  method: 'post',
+  dataType: 'json',
+  data:{ amount:totalPrice },
+  
+ 
+  success : function(response) {
+    // options.order_id = response.order_id;
+    orderId = response.orderId
+    var options = {
+    key: "rzp_test_lln58K3K1z4yjb", // Enter the Key ID generated from the Dashboard
+    amount:amount*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    currency: "INR",
+    name: "E-MART", //your business name
+    description: "Test Transaction",
+    image: "https://example.com/your_logo",
+    order_id:orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    handler: function (response){
+      $.ajax({
+        url:'/postpayment',
+        method:"post",
+        data:{orderId,payid:response.razorpay_payment_id,razorOrderid:response.razorpay_order_id,signature:response.razorpay_signature},
+        success:function(response){
+          // console.log(response.message)
+          alert("payment suucesfull")
+          location.href = '/confirm-order'
+
+        }
+
+      })  
+    },
+    "prefill": {
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+ 
+  }
+  var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+rzp1.open();
+}});
+}
+  
+  
+</script>
+
+
+
+                                                    <script
+                                                      src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                                                    <script
+                                                      src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                                    <script>
+
+
+
+</script>
+                                                    <script>
+
+
+
+     function order(){
+      const paymentChecked = document.querySelectorAll('input[name="radio"]:checked') 
+
+paymentChecked.forEach((radio)=>{
+  if (radio.checked) {
+    // let address = document.getElementById('nametest').textContent
+        // let country = document.getElementById('country').textContent
+        // let state = document.getElementById('state').textContent
+        // let postalcode = document.getElementById('postalcode').textContent
+        const inputBox1 = document.getElementById("address");
+        const inputBox2 = document.getElementById("country")
+        const inputBox3 = document.getElementById("city")
+        const inputBox4 = document.getElementById("state")
+        const inputBox5 = document.getElementById('postalcode')
+        const inputBox6 = document.getElementById('mobile')
+        const inputBox7 = document.getElementById('email')  
+        const inputBox8 = document.getElementById('fname')
+        const inputBox9 = document.getElementById('lname')    
+
+     let checkbox = radio.value
+     console.log(typeof(checkbox))
+     let address = 'nametest'+checkbox
+     let country = 'country'+checkbox
+      let city = 'city'+checkbox
+      let state = 'state'+checkbox
+    //  console.log(state,"hello")
+      let postalcode = 'postalcode'+checkbox
+      let mobile = 'mobile'+checkbox
+      let email = 'email'+checkbox
+      let fname = 'fname'+checkbox
+      let lname = 'lname'+checkbox
+
+
+
+
+
+
+    let test1 = document.getElementById(address).textContent
+    let test2 = document.getElementById(country).textContent
+     let test3 = document.getElementById(city).textContent
+    let test4 = document.getElementById(state).textContent
+    console.log(test4,"state")
+    let test5 = document.getElementById(postalcode).textContent
+     let test6 = document.getElementById(mobile).textContent
+     let test7 = document.getElementById(email).textContent
+     let test8 = document.getElementById(fname).textContent
+     let test9 = document.getElementById(lname).textContent
+
+
+    const hello =  inputBox1.value=test1
+    const country1 = inputBox2.value=test2
+     const city1 = inputBox3.value=test3
+    const state1 = inputBox4.value=test4
+    const postalcode1 = inputBox5.value=test5
+     const mobile1 = inputBox6.value =test6 
+     const email1 = inputBox7.value=test7 
+     const fname1 = inputBox8.value =test8
+     const lname1 = inputBox9.value =test9
+
+
+
+
+
+    
+   
+   
+
+    
+  }
+
+
+})
+}
+function coupenApply(){
+
+  console.log("this coupen apply")
+   
+  let  COUPEN = document.getElementById("coupen").value
+  let total = document.getElementById("total").textContent
+  let price = document.getElementById("subtotal").textContent
+  let money2 = document.getElementById('money2').value
+  let money = document.getElementById('money').textContent
+  let money3 = document.getElementById('money3').value
+  let  money1 = document.getElementById('money1').textContent
+
+
+
+  total = parseInt(total)
+  money = parseInt(money)
+  money2 =  parseInt(money2)
+
+  console.log(money,"hey")
+  subtotal = parseInt(money2)
+
+ 
+  $.ajax({
+    url: '/check_coupen',
+    method:"post",
+    data:{COUPEN,total},
+    success:function(response){
+      if (response.success == "success") {
+        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'coupen valid'
+                                })
+                
+       
+       
+        if (price == 0) {
+          let discountAmount = parseInt(response.dicountAmount)
+          totalWallet = money + discountAmount
+          console.log(totalWallet,"this is total amount")
+          document.getElementById('money').textContent = totalWallet
+          document.getElementById('money3').value = discountAmount
+          document.getElementById("payment").style.display = "none";
+          document.getElementById("fullWallet").style.display = "block"
+        }
+        else {
+      
+         
+      console.log(money2,"this is money")
+     
+        console.log(typeof(money2))
+       discountAmount = parseInt(response.dicountAmount)
+         if(money2 == 0){
+          let dicountTotal = total-discountAmount
+           document.getElementById('discount').textContent= discountAmount
+           document.getElementById('subtotal').textContent=dicountTotal
+           document.getElementById('money3').value = response.dicountAmount
+         
+
+      }
+      else{
+
+        let discountAmount = parseInt(response.dicountAmount)
+      
+            document.getElementById('discount').textContent= discountAmount
+            
+
+              let lastprice = money2 -discountAmount
+             
+              document.getElementById('subtotal').textContent=lastprice
+              document.getElementById('money3').value = discountAmount
+             
+
+          }
+        }
+       
+      
+        
+      }
+       
+          
+          
+        
+         
+        
+          
+     
+        
+        
+       
+
+
+          
+
+        
+          
+
+    
+        
+        
+       
+        
+      else if(response.success == "minimum"){
+        minAmount = response.minPurchase
+        console.log(minAmount,"hey minimum")
+        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'error',
+                                title: `you should purchase at least for Rs.${minAmount}`
+                                })
+        
+      }
+      else if(response.success == "cannot apply"){
+
+       const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'error',
+                                title: 'LIMIT EXCEEDED'
+                                })
+      }
+      
+      else if(response.success == "failed"){
+        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'warning',
+                                title: 'PLEASE ENTER COUPEN'
+                                })
+      }
+      else if(response.success == "Already Used"){
+        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'warning',
+                                title: 'You have already used this coupen'
+                                })
+      }
+
+      else if(response.success == "expiry"){
+        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'warning',
+                                title: 'COUPEN EXPIRED'
+                                })
+      }
+      
+    }
+
+  })
+
+
+}
+
+       
+    
+
+     
+      
+ 
+     
+     
+    
+
+         ;</script>
+                                                    <%-
+                                                      include('../layouts/footer.ejs')
+                                                      %>

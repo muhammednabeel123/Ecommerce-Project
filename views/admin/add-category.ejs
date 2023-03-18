@@ -1,0 +1,196 @@
+<%- include('../layouts/adminheader.ejs') %>
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">Add Product</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+              <div class="col-xl-6 col-lg-6 col-md-12">
+                <form action="/admin/add-category" method="post" class="tm-edit-product-form" enctype="multipart/form-data">
+                  <div class="form-group mb-3">
+                    <% if(typeof message !=='undefined'){ %>
+                      <p style="color: rgb(255, 0, 0);"> <%= message %></p>
+                      <% } %>
+                    <label
+                      for="name"
+                      >Category Name
+                    </label>
+                    <input
+                  
+                      name="categoryname"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                  
+                 
+                  
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                <div class="tm-product-img-dummy mx-auto">
+                  <i
+                    class="fas fa-cloud-upload-alt tm-upload-icon"
+                   
+                  ></i>
+                </div>
+                <div class="custom-file mt-3 mb-3">
+                  <input id="customFile" name="image" data-parsley-trigger="change" type="file" />
+                  
+                </div>
+                
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+              </div>
+            </form>
+
+            <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body w-75" >
+                        <img id="cropperImage" src="#" alt="Image preview" width="100">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveCroppedImage">Save</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5">
+                  <img src=""  id="image" width="100" alt="">
+
+                </div>
+                <input type="hidden" type="file" name="croppedImage" id="croppedImage">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+        <div class="col-12 font-weight-light">
+          <p class="text-center text-white mb-0 px-4 small">
+            Copyright &copy; <b>2018</b> All rights reserved. 
+            
+            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+        </p>
+        </div>
+    </footer> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+            var cropper;
+
+document.getElementById('customFile').addEventListener('change', function(event) {
+  var input = event.target;
+  var reader = new FileReader();
+  reader.onload = function() {
+    var dataURL = reader.result;
+    var output = document.getElementById('image');
+    output.src = dataURL;
+    // Replace the image in the cropper
+    if (cropper) {
+      cropper.replace(dataURL);
+    } else {
+      // Initialize the cropper inside the modal when the "Crop" button is clicked
+      document.getElementById('cropperImage').src = dataURL;
+      $('#cropModal').on('shown.bs.modal', function () {
+        cropper = new Cropper(document.getElementById('cropperImage'), {
+          aspectRatio: 1, // Set the aspect ratio to 1:1
+          viewMode: 1, // Set the view mode to "crop box"
+        });
+      });
+    }
+        // Show the modal
+        $('#cropModal').modal('show');
+  };
+  reader.readAsDataURL(input.files[0]);
+});
+// Add an event listener to the save button to handle the upload process
+document.getElementById('saveCroppedImage').addEventListener('click', function() {
+  if (!cropper) {
+    return;
+  }
+  // Retrieve the cropped image data from the cropper
+  var croppedImageData = cropper.getCroppedCanvas().toDataURL('image/jpeg');
+
+  // Change the input file to the cropped image
+  var input = document.getElementById('customFile');
+  var file = dataURItoBlob(croppedImageData);
+  var fileName = 'croppedImage.jpg';
+  var newFile = new File([file], fileName, { type: file.type });
+  input.files = [newFile];
+
+  // Hide the modal
+  $('#cropModal').modal('hide');
+});
+
+
+// Helper function to convert base64 data URI to a Blob object
+function dataURItoBlob(dataURI) {
+  var byteString = atob(dataURI.split(',')[1]);
+  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  var ab = new ArrayBuffer(byteString.length);
+  var ia = new Uint8Array(ab);
+  for (var i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], {type: mimeString});
+}
+
+
+document.getElementById('saveCroppedImage').addEventListener('click', function() {
+  if (!cropper) {
+    return;
+  }
+
+  // Retrieve the cropped image data from the cropper
+  var croppedImageData = cropper.getCroppedCanvas().toDataURL('image/jpeg');
+
+  // Create a new Blob object from the cropped image data
+  var croppedImageBlob = dataURItoBlob(croppedImageData);
+
+  // Create a new File object from the cropped image blob with the original filename
+  var croppedImageFile = new File([croppedImageBlob], document.getElementById('customFile').files[0].name, { type: 'image/jpeg' });
+
+// Helper function to create a new FileList object
+function FileListItem(a) {
+  a = [].slice.call(Array.isArray(a) ? a : arguments)
+  for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File
+  if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+  for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(a[c])
+  return b.files
+}
+
+  // Replace the value of the customFile input with the new cropped image file
+  document.getElementById('customFile').value = '';
+  var input = document.getElementById('customFile');
+  input.files = new FileListItem([croppedImageFile]);
+  // Hide the modal
+  $('#cropModal').modal('hide');
+});
+    </script>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <!-- https://jqueryui.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/d4801b7ff5.js" crossorigin="anonymous"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script>
+      $(function() {
+        $("#expire_date").datepicker();
+      });
+    </script>
+  </body>
+</html>

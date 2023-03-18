@@ -1,0 +1,135 @@
+<%- include('../layouts/adminheader.ejs') %>
+        
+                
+<div class="container mt-5">
+    <div class="row tm-content-row">
+      <div class="col-sm-12 col-md-12 col-lg-16 col-xl-16 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block tm-block-products">
+          <div class="tm-product-table-container">
+            <table class="table table-hover tm-table-small tm-product-table " id="example">
+              <thead>
+                <tr>
+                                    <th scope="col">NAME</th>
+                                    <th scope="col">EMAIL</th>
+                                    <th scope="col">MOBILE</th>
+                                    <th scope="col">VERIFIED</th>
+                                    <th scope="col">BLOCK/UNBLOCK</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <% if (user.length>0) {
+                                for(let i=0;i<user.length;i++) { %>
+                                <tr>
+                                   
+                                    
+                                    <td><b><%= user[i].name %></b></td>
+                                    <td><b><%= user[i].email %></b></td>
+                                    <td><b><%= user[i].mobile %></b></td>
+                                    <td><%= user[i].is_verfied %></td>
+                                    <% if (user[i].is_verfied === 1) { %> 
+                                        <form action="/admin/user-block?id=<%= user[i]._id %>" method="post">
+                                      <td><button type="submit" onclick="formSubmit()" class="btn btn-danger">BLOCK</button></td>
+                                      </form>
+                                  
+                                    <% } else { %>
+                                        <form action="/admin/user-block?id=<%= user[i]._id %>" method="post">
+                                            <td><button type="submit" onclick="formSubmit()" class="btn btn-success">UNBLOCK</button></td>
+                                            </form>
+                                      
+                                    <% } %>
+                                   
+                                    
+                                   
+                                </tr>
+                              
+                                <% } %>
+                                <% } else {%>
+                                  <tr>
+                                    <td colspan="5">user not found</td>
+              
+                                  </tr>
+                                 <% } %>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
+                    
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/moment.min.js"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="js/Chart.min.js"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="js/tooplate-scripts.js"></script>
+    <script src="https://kit.fontawesome.com/d4801b7ff5.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script>
+        function formSubmit() {
+    event.preventDefault(); // prevent form submit
+    let form = event.target.form; // storing the form
+    swal({
+        title: "Are you sure?",
+        text: "But you will still be able to retrieve this file.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor:"#DD6B55",
+        confirmButtonText: "Yes, Change it!",
+        cancelButtonText: "No, cancel please!",
+        closeOnConfirm: false,
+        closeOnCancel: false,
+
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                form.submit();          // submitting the form when user press yes
+            } else {
+                swal("Cancelled", "Your file is safe :)", "error");
+            }
+        });
+    }
+
+    </script>
+    <script>
+        Chart.defaults.global.defaultFontColor = 'white';
+        let ctxLine,
+            ctxBar,
+            ctxPie,
+            optionsLine,
+            optionsBar,
+            optionsPie,
+            configLine,
+            configBar,
+            configPie,
+            lineChart;
+        barChart, pieChart;
+        // DOM is ready
+        $(function () {
+            drawLineChart(); // Line Chart
+            drawBarChart(); // Bar Chart
+            drawPieChart(); // Pie Chart
+
+            $(window).resize(function () {
+                updateLineChart();
+                updateBarChart();                
+            });
+        })
+    </script>
+</body>
+
+</html>

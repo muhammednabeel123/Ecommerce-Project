@@ -1,0 +1,239 @@
+ <%- include('../layouts/header.ejs') %> 
+
+<div class="container mt-5 mb-5">
+
+    <div class="row d-flex justify-content-center">
+
+        <div class="col-md-16">
+
+            <div class="card">
+
+
+                    <div class="text-left logo p-2 px-5">
+
+                        <!-- <img src="https://i.imgur.com/2zDU056.png" width="50"> -->
+                        
+
+                    </div>
+
+                    <div class="invoice p-5">
+
+                        <h5>Your order Confirmed!</h5>
+
+                        <span class="font-weight-bold d-block mt-4"><%= user.name %></span>
+                        <span>You order has been confirmed and will be shipped in next two days!</span>
+
+                        <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+
+                            <table class="table table-borderless">
+                                
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="py-2">
+
+                                                <span class="d-block text-muted">Order Date</span>
+                                            <span><%= orderData.created_date %></span>
+                                                
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="py-2">
+
+                                                <span class="d-block text-muted">Order No</span>
+                                            <span><%= orderData._id  %></span>
+                                                
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="py-2">
+
+                                                <span class="d-block text-muted">Payment</span>
+                                            <span><%= orderData.payment_method  %></span>
+                                                
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="py-2">
+
+                                                <span class="d-block text-muted">Shiping Address</span>
+                                            <span><%= orderData.address[0].address  %></span>
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+
+
+
+                            
+                        </div>
+
+
+
+
+                            <div class="product border-bottom table-responsive">
+
+                                <table class="table table-borderless">
+                                 
+                                   
+                                <tbody>
+                                    <% if (orderItem.length>0) {
+                                        for(let i=0;i<orderItem.length;i++) { %>
+                                    <tr>
+                                        <td width="20%">
+                                        
+                                            <img style="height:5rem;width:5rem;" src="/productimage/<%= orderData.products[i].item.Image[0] %>" alt="<%= orderData.products[i].item.Image[0] %>">
+
+                                    </td>
+                                
+                                    <td width="60%">
+                                        
+                                        <span class="font-weight-bold"><%= orderData.products[i].item.name %></span>
+                                        <div class="product-qty">
+                                            <span class="d-block">Quantity:<%= orderData.products[i].quantity %></span>
+                                          
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="20%">
+                                        <div class="text-right">
+                                            <span class="font-weight-bold">&#X20B9;<%= orderData.products[i].pricetotal %></span>
+                                            
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <%  } %>
+							<% } else {%>
+							  <tr>
+								<td colspan="5">Category not found</td>
+		  
+							  </tr>
+							 <% } %>
+
+
+
+                                  
+                                 
+                                    
+                                </tbody> 
+                                    
+                                </table>
+                                
+
+
+                            </div>
+
+
+
+                            <div class="row d-flex justify-content-end">
+
+                                <div class="col-md-5">
+
+                                    <table class="table table-borderless">
+
+                                        <tbody class="totals">
+
+                                            <tr>
+                                                <td>
+                                                    <div class="text-left">
+
+                                                        <span class="text-muted">Subtotal</span>
+                                                        
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-right">
+                                                        <span>&#X20B9;<%= sum %></span>
+                                 
+                                                       
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                           
+
+
+                                            
+
+
+                                             <tr>
+                                                <td>
+                                                    <div class="text-left">
+
+                                                        <span class="text-muted">Discount</span>
+                                                        
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-right">
+                                                        <span class="text-success">&#X20B9;<%= discount %></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                             <tr class="border-top border-bottom">
+                                                <td>
+                                                    <div class="text-left">
+                                                         <span class="text-muted">total</span>
+                                                        
+                                                        
+
+                                                        <span class="font-weight-bold"></span>
+                                                        
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-right">
+                                                        <span class="font-weight-bold">&#X20B9;<%= orderData.total %></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                        
+                                    </table>
+                                    
+                                </div>
+                                
+
+
+                            </div>
+
+
+                            <p>We will be sending shipping confirmation email when the item shipped successfully!</p>
+                            <p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
+                            <span>E-MART</span>
+
+
+
+                        
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between footer p-3">
+
+                        <span>Need Help? visit our <a href="#"> help center</a></span>
+                         <span><%= orderData.created_date %></span>
+                        
+                    </div>
+
+
+
+        
+    </div>
+            
+        </div>
+        
+    </div>
+    
+</div>

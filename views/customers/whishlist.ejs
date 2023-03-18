@@ -1,0 +1,198 @@
+<%- include('../layouts/header.ejs') %>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <style>
+        .btn {
+  background-color: transparent;
+  position: relative;
+  border: none;
+}
+
+.btn::after {
+  content: 'delete';
+  position: absolute;
+  top: -130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(168, 7, 7);
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: .2s linear;
+  transition-delay: .2s;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.icon {
+  transform: scale(1.2);
+  transition: .2s linear;
+}
+
+.btn:hover > .icon {
+  transform: scale(1.5);
+}
+
+.btn:hover > .icon path {
+  fill: rgb(168, 7, 7);
+}
+
+.btn:hover::after {
+  visibility: visible;
+  opacity: 1;
+  top: -160%;
+}
+
+    </style>
+
+    <!-- Humberger Begin -->
+   
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <%- include('../layouts/nav.ejs') %>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Wishlist</h2>
+                        <div class="breadcrumb__option">
+                            <a href="/">Home</a>
+                            <span>Wishlist</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>
+                                    <th>Price</th>
+                                    
+                                  
+                                    <th>Remove</th>
+                                    <th>Add to cart</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> <% if (product) {
+                                    for(let i=0;i<product.length;i++) { %>
+                                    <td class="shoping__cart__item">
+                                        <img style="height:5rem;width:5rem;" src="/productimage/<%= product[i].Image[0] %>" alt="<%= product[0].Image %>">
+                                        <h5><%= product[i].name %></h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        Rs.<%= product[i].price %>
+                                    </td>
+                                   
+                                    <td class="shoping__cart__quantity">
+                                        <div style="    height: 37px;
+                                        width: 240px;"> <a href="/delete-wishlist?id=<%= product[i]._id %>" > <button class="btn">
+  <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
+  <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
+</svg>
+</button></a></div>
+
+
+                                        </td>
+                                        <td class="cart__total ">
+                                            <a onclick="addcart('<%= product[i]._id %>')"><button class="site-btn">Add to Cart</button></td></a>
+                                       
+                                
+                                  
+                                </tr>
+                                <% } %>
+							<% } else {%>
+							  <tr>
+								<td colspan="5">Cart is empty</td>
+		  
+							  </tr>
+							 <% } %>
+                                
+                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+    <!-- Shoping Cart Section End -->
+
+    <!-- Footer Section Begin -->
+    
+    <!-- Footer Section End -->
+
+    <script>
+        function addcart(productId){
+            $.ajax({
+                url:`add-cart/${productId}`,
+                method:'get',
+             success:function(response){
+                alert('added to cart successfully')
+             }
+                
+            })
+        }
+        
+    </script>
+
+    <!-- Js Plugins -->
+    <%- include('../layouts/footer.ejs') %>

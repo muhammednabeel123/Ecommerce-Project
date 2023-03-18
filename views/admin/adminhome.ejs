@@ -1,0 +1,343 @@
+<%- include('../layouts/adminheader.ejs') %>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-white mt-5 mb-5">Welcome back, <b>Admin</b></p>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row tm-content-row">
+              
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">Performance</h2>
+                        <input type="hidden" id="day" value="<%= day %>">
+                        <% console.log(day)%>
+                        <input type="hidden" id="linechart" value="<%= lineChart %>">
+
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                        <h2 class="tm-block-title">Category Sales</h2>
+                        <div id="pieChartContainer">
+                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+                        </div>                        
+                    </div>
+                </div>
+               
+                
+                <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Orders List</h2>
+                        <table class="table">
+                            <thead>
+                                
+                                <tr>
+                                    <th scope="col">SL_NO.</th>
+                                    <th scope="col">ORDER_ID</th>
+                                    <th scope="col">STATUS</th>
+                                 
+                                    <th scope="col">PAYMENT</th>
+                                    <th scope="col">START DATE</th>
+                                    <th scope="col">EST DELIVERY DUE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <% if(orderData.length>0){
+                                        for(i=0;i<orderData.length;i++){
+                                     %>
+                                    <th scope="row"><b>#<%= [i+1] %></b></th>
+                                    <td><b><%= orderData[i]._id %></b></td>
+                                   <td>
+    <% if(orderData[i].order_status === 'placed') { %>
+        <div class="tm-status-circle moving"></div>
+        <%= orderData[i].order_status %>
+    <% } else if(orderData[i].order_status === 'pending') { %>
+        <div class="tm-status-circle pending"></div>
+        <%= orderData[i].order_status %>
+    <% } else if(orderData[i].order_status === 'Cancelled') { %>
+        <div class="tm-status-circle cancelled"></div>
+        <%= orderData[i].order_status %>
+    <% } %>
+</td>
+
+
+
+                                   
+                              
+                                    <td><b><%= orderData[i].payment_method %></b></td>
+                                    <td><%= orderData[i].created_date %></td>
+                                    <td><%= orderData[i].delivery_date %></td>
+                                </tr>
+                                <% } %>
+                  <% } else {%>
+                                    <td> no orders found</td>
+                                    <%  } %>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <input type="hidden" id="piechart" value="<%= pieChart %>">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
+                    
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        const width_threshold = 480;
+
+function drawLineChart() {
+  if ($("#lineChart").length) {
+    ctxLine = document.getElementById("lineChart").getContext("2d");
+    optionsLine = {
+      scales: {
+        yAxes: [
+          {
+            scaleLabel: {
+              display: true,
+              labelString: "weeky perfomance"
+            }
+          }
+        ]
+      }
+    };
+
+    // Set aspect ratio based on window width
+    optionsLine.maintainAspectRatio =
+      $(window).width() < width_threshold ? false : true;
+
+    configLine = {
+      type: "line",
+      data: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July"
+        ],
+        datasets: [
+          {
+            label: "Latest Hits",
+            data: [88, 68, 79, 57, 50, 55, 70],
+            fill: false,
+            borderColor: "rgb(75, 192, 192)",
+            cubicInterpolationMode: "monotone",
+            pointRadius: 0
+          },
+          {
+            label: "Popular Hits",
+            data: [33, 45, 37, 21, 55, 74, 69],
+            fill: false,
+            borderColor: "rgba(255,99,132,1)",
+            cubicInterpolationMode: "monotone",
+            pointRadius: 0
+          },
+          {
+            label: "Featured",
+            data: [44, 19, 38, 46, 85, 66, 79],
+            fill: false,
+            borderColor: "rgba(153, 102, 255, 1)",
+            cubicInterpolationMode: "monotone",
+            pointRadius: 0
+          }
+        ]
+      },
+      options: optionsLine
+    };
+
+    lineChart = new Chart(ctxLine, configLine);
+  }
+}
+
+function drawBarChart() {
+  if ($("#barChart").length) {
+    ctxBar = document.getElementById("barChart").getContext("2d");
+    day = document.getElementById("day").value
+    linechart = document.getElementById('linechart').value
+    let thursday = day[0]
+    let friday = day[1]
+    let saturday = day[2]
+    let sunday = day[3]
+    let monday = day[4]
+    let tuesday = day[5]
+    let wednesday = day[6]
+
+    optionsBar = {
+      responsive: true,
+      scales: {
+        yAxes: [
+          {
+            barPercentage: 0.2,
+            ticks: {
+              beginAtZero: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "Hits"
+            }
+          }
+        ]
+      }
+    };
+
+    optionsBar.maintainAspectRatio =
+      $(window).width() < width_threshold ? false : true;
+
+    /**
+     * COLOR CODES
+     * Red: #F7604D
+     * Aqua: #4ED6B8
+     * Green: #A8D582
+     * Yellow: #D7D768
+     * Purple: #9D66CC
+     * Orange: #DB9C3F
+     * Blue: #3889FC
+     */
+
+    configBar = {
+      type: "horizontalBar",
+      data: {
+        labels: ["thursday", "friday", "saturday", "sunday", "monday", "tuesday", "wednesday"],
+        datasets: [
+          {
+            label: "# of sales",
+            data: [linechart[0], linechart[1], linechart[2],linechart[3], linechart[4], linechart[5],linechart[6]],
+            backgroundColor: [
+              "#F7604D",
+              "#4ED6B8",
+              "#A8D582",
+              "#D7D768",
+              "#9D66CC",
+              "#DB9C3F",
+              "#3889FC"
+            ],
+            borderWidth: 0
+          }
+        ]
+      },
+      options: optionsBar
+    };
+
+    barChart = new Chart(ctxBar, configBar);
+  }
+}
+
+function drawPieChart() {
+  if ($("#pieChart").length) {
+    var chartHeight = 300;
+    var data = document.getElementById("piechart").value.split(',').map(Number);
+    console.log(data,"this is data")
+
+    $("#pieChartContainer").css("height", chartHeight + "px");
+
+    ctxPie = document.getElementById("pieChart").getContext("2d");
+
+    optionsPie = {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10
+        }
+      },
+      legend: {
+        position: "top"
+      }
+    };
+
+    configPie = {
+      type: "pie",
+      data: {
+        datasets: [
+          {
+            data: [data[0],data[1],data[2],data[3]],
+            backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582"],
+            label: "sales"
+          }
+        ],
+        labels: [
+          "JUICES ",
+          "FRUITS",
+          "VEGETABLES",
+          " DRIED FRUITS"
+
+        ]
+      },
+      options: optionsPie
+    };
+
+    pieChart = new Chart(ctxPie, configPie);
+  }
+}
+
+function updateLineChart() {
+  if (lineChart) {
+    lineChart.options = optionsLine;
+    lineChart.update();
+  }
+}
+
+function updateBarChart() {
+  if (barChart) {
+    barChart.options = optionsBar;
+    barChart.update();
+  }
+}
+
+    </script>
+
+    <script src="/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="/moment.min.js"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="/Chart.min.js"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="/tooplate-scripts.js"></script>
+    <script src="https://kit.fontawesome.com/d4801b7ff5.js" crossorigin="anonymous"></script>
+    <script>
+        Chart.defaults.global.defaultFontColor = 'white';
+        let ctxLine,
+            ctxBar,
+            ctxPie,
+            optionsLine,
+            optionsBar,
+            optionsPie,
+            configLine,
+            configBar,
+            configPie,
+            lineChart;
+        barChart, pieChart;
+        // DOM is ready
+        $(function () {
+            drawLineChart(); // Line Chart
+            drawBarChart(); // Bar Chart
+            drawPieChart(); // Pie Chart
+
+            $(window).resize(function () {
+                updateLineChart();
+                updateBarChart();                
+            });
+        })
+    </script>
+</body>
+
+</html>

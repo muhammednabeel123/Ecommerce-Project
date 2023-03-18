@@ -1,0 +1,112 @@
+<%- include('../layouts/header.ejs') %>
+<style>
+  @media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+  .table {
+    width: 100%;
+  }
+  .table thead {
+    display: none;
+  }
+  .table tbody {
+    display: block;
+    width: 100%;
+  }
+  .table tbody tr {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  .table tbody td {
+    display: block;
+    text-align: center;
+  }
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+</style>
+
+<%- include('../layouts/nav.ejs') %>
+<section class="vh-100" style="background-color: #eee;">
+  <div class="container py-3">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-12 col-xl-18">
+
+              <div class="card">
+                  <div class="card-header p-3">
+                      <h5 class="mb-0">Order List</h5>
+                  </div>
+                  <div class="card-body table-responsive" data-mdb-perfect-scrollbar="true" style="position: relative; height: 600px; ">
+                      <table class="table  table-hover mb-0">
+                          <thead>
+                              <tr>
+                                  <th scope="col">ORDER_ID</th>
+                                  <th scope="col">ORDER_STATUS</th>
+                                  <th scope="col">PAYMENT_STATUS</th>
+                                  <th scope="col">ORDER_DATE</th>
+                                  <th scope="col">ACTIONS</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% if (OrderData) {
+                                  for(let i=0;i<OrderData.length;i++) { %>
+                                  
+                                      <tr class="fw-normal">
+                                          <td data-label="ORDER_ID">
+                                              <span class="ms-2"><%= OrderData[i]._id %></span>
+                                          </td>
+                                          <td data-label="ORDER_STATUS" class="align-middle">
+                                              <h5 class="mb-0"><div class="tm-status-circle pending"><%= OrderData[i].order_status %></div></span></h6>
+                                          </td>
+                                          <td data-label="PAYMENT_STATUS" class="align-middle">
+                                              <h6 class="mb-0"><span class="ms-5"><%= OrderData[i].payment_method %></span></h6>
+                                          </td>
+                                          <td data-label="ORDER_DATE" class="align-middle">
+                                              <h6 class="mb-0"><span><%= OrderData[i].created_date %></span></h6>
+                                          </td>
+                                          <td data-label="ACTIONS" class="align-middle">
+                                              <a href="/view-order?id=<%= OrderData[i]._id %>"><h6 class="mb-0"><span style="color:rgb(96, 211, 42) ;" >View order</span></h6></a>
+                
+                    </td>
+                    
+							<% } %>
+             
+							<% } else {%>
+							  <tr>
+								<td colspan="5">no orders</td>
+		  
+							  </tr>
+							 <% } %>
+                  </tr>
+                  
+                
+                  
+                 
+                </tbody>
+              </table>
+  
+            </div>
+         
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+</div></div>
+<%- include('../layouts/footer.ejs') %>
+
+
+
+
+
+

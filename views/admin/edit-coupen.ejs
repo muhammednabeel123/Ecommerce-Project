@@ -1,0 +1,134 @@
+<%- include('../layouts/adminheader.ejs') %>
+
+
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">COUPEN DETAILS</h2>
+            </div>
+          </div>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <form action="" method="post" class="tm-edit-product-form">
+                <div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >COUPEN_ID
+                  </label>
+                  <input
+                    id="id"
+                    name="coupen_id"
+                    type="text"
+                    value="<%= coupenData._id %>"
+                   
+                    class="form-control validate"
+                    
+                   >
+                
+                </div>
+                <div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >COUPEN NAME
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="<%= coupenData.code %>"
+                    
+                    class="form-control validate"
+                  />
+                </div><div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >MAX REDEEM
+                  </label>
+                  <input
+                    id="name"
+                    name="max"
+                    type="text"
+                    value="<%= coupenData.maxRedeemAmount %>"
+                    class="form-control validate"
+                    
+                  />  </div><div class="form-group mb-3">
+                   
+                    <div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >MIN PURCHASE
+                  </label>
+                  <input
+                    id="name"
+                    name="min"
+                    type="text"
+                    value="<%= coupenData.minPurchaseAmount %>"
+                    class="form-control validate"
+                    
+                  />
+                </div>
+         
+               
+                <div class="">
+                  <div class="form-group mb-3">
+                    
+                  <div class="form-group mb-3">
+                 <% if(coupenData.expiry_date > coupenData.created_date) { %> <label
+                    for="name"
+                    >EXPIRED
+                  </label>
+                  <input
+                    id="reason"
+                    name="expired"
+                    type="text"
+                    value="<%= coupenData.expiry_date %>"
+                    class="form-control validate"
+                    
+                  />
+                  <% } else { %>
+                    <label
+                    for="name"
+                    >EXPIRED
+                  </label>
+                  <input
+                    id="reason"
+                    name="reason"
+                    type="text"
+                    value="EXPIRED"
+                    class="form-control validate"
+                    
+                  />
+                    <% } %>
+                  
+                </div>
+
+                     
+
+                    
+
+                      
+                        
+
+                  
+                   
+                     
+                </div>
+                
+            </div>
+            
+            
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<%- include('../layouts/adminfooter.ejs') %>

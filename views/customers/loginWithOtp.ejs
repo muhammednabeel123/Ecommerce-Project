@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+    <style>
+ body{
+    background-color:	#d1dcd0;;
+  
+}
+
+.card{
+    width: 475px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    height: 309px;
+    background-color: rgb(255, 255, 255);
+  
+}
+
+
+.form-input input{
+    height:45px;
+    padding-right:35px;
+    border:2px solid rgb(237, 237, 237);
+    transition:all 0.5s;
+}
+
+.form-input input:focus{
+    box-shadow:none;
+    border:2px solid #000;
+}
+
+.info-text{
+    font-size:14px;
+}
+
+.form-input i{
+    position:absolute;
+    top:14px;
+    right:10px;
+}
+
+
+
+.go-button{
+    border:none;
+    height:50px;
+    width:50px;
+    font-size:29px;
+    color:#fff;
+    background-color:#549551;
+    border-radius:50%;
+    transition:all 0.5s;
+}
+
+.go-button:hover{
+    background-color:#6200EA;
+}
+    </style>
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="card py-4 px-4" style="">
+            <div class="text-center">
+                <!-- <img src="https://i.imgur.com/u5cP8rr.png" width="60"> -->
+
+        <form method = 'post' action="/loginWithOtp">
+            <% if(typeof message !=='undefined') { %>
+
+                <p style="color: rgb(252, 0, 0)">
+                <%= message%> </p>
+                <% } %>
+            </div>
+            <div class="text-center mt-3">
+                
+            <span class="info-text">Please enter your mobile number</span>
+            
+            </div>
+            <div class="position-relative mt-3 form-input">
+                <input class="form-control " input name='mno' type='text' placeholder="number">
+                <i class='bx bxs-phone'></i>
+            </div>
+            
+            
+            <div class=" mt-5 d-flex justify-content-between align-items-center">
+                <span><a style="text-decoration: none; color: rgb(205, 84, 84);" href="/register" >Login or Signup</span></a>
+                <!-- <span><a style="text-decoration: none; color: rgb(205, 84, 84);" href="/loginWithOtp" >Resend</span></a> -->
+                <button class="go-button" type="submit"><i class='bx bxs-right-arrow-alt' ></i></button>
+            </div>
+        </form>    
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+<!-- 
+<div>
+    <h1>hellooo</h1>
+    <form method = 'post' action="/loginWithOtp">
+    <input name='mno' type='text' placeholder="number">
+    <button type='submit' >submit</button>
+    </form>
+</div> -->
+

@@ -1,0 +1,147 @@
+<%- include('../layouts/header.ejs') %>
+<%- include('../layouts/nav.ejs') %>
+<style>
+    /* Form styling */
+    body {
+  background: rgb(255, 254, 255)
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #7fad39f0
+}
+
+.profile-button {
+  background: #7fad39;
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #7fad39
+}
+
+.profile-button:focus {
+  background: #7fad39;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background:#7fad39;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #7fad39;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #ccb3d0;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #c8aecc
+}
+  </style>
+
+<% if(user.address[0]) {%>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+               
+                <div class="row mt-2">
+                    <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="<%= user.name %>" name="name"></div>
+                    
+                </div>
+                <div class="row mt-3">
+                    <form action="/edit-profile" method="post">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value="<%= user.mobile %>" name="mobile" disabled></div>
+                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value="<%= user.address[0].address1 %>" name="address" required></div>
+                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="Area" value="<%= user.address[0].street %>" name="area"></div>
+                   
+                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value="<%= user.address[0].postalcode %>" name="postcode" required></div>
+
+                    <div class="col-md-12"><label class="labels">District</label><input type="text" class="form-control" placeholder="enter address line 2" value="<%= user.address[0].district %>" name="district" required></div>
+              
+                   
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="<%= user.email %>" name="email" required></div>
+                    
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value="<%= user.address[0].country %>" name="country" required></div>
+                    <div class="col-md-6"><label class="labels">State</label><input type="text" class="form-control" value="<%= user.address[0].state %>" placeholder="state" name="state" required></div>
+                </div>
+                <div class="mt-5 text-center"><button class="btn  profile-button" type="submit">Save Profile</button></div>
+            </form>
+         
+            </div>
+        </div>
+        <div class="col-md-4">
+           
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<% } else { %>
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                   
+                    <div class="row mt-2">
+                      
+                        
+                    </div>
+                    <div class="row mt-3">
+                        <form action="/edit-profile" method="post">
+                          <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="<%= user.name %>" name="name"></div>
+                        <div class="col-md-12"><label class="labels">mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value="<%= user.mobile %>" name="mobile" ></div>
+                        <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value="" name="address" required></div>
+                        <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="Area" value="" name="area"></div>
+                       
+                        <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value="" name="postcode" required></div>
+    
+                        <div class="col-md-12"><label class="labels">District</label><input type="text" class="form-control" placeholder="enter address line 2" value="" name="district" required></div>
+                  
+                       
+                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="" name="email" required></div>
+                        
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value="" name="country" required></div>
+                        <div class="col-md-6"><label class="labels">State</label><input type="text" class="form-control" value="" placeholder="state" name="state" required></div>
+                    </div>
+                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                </form>
+             
+                </div>
+            </div>
+            <div class="col-md-4">
+               
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <% } %>
+
+<%- include('../layouts/header.ejs') %>

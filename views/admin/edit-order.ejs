@@ -1,0 +1,220 @@
+<%- include('../layouts/adminheader.ejs') %>
+
+
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">ORDER DETAILS</h2>
+            </div>
+          </div>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <form action="" method="post" class="tm-edit-product-form">
+                <div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >ORDER_ID
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="<%= orderData._id %>"
+                   
+                    class="form-control validate"
+                    
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >Username
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="<%= orderData.user.name %>"
+                    
+                    class="form-control validate"
+                  />
+                </div><div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >DATE
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="<%= orderData.createdAt %>"
+                    class="form-control validate"
+                    
+                  />  </div><div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >PRODUCTS
+                    </label>
+                    <% if (products.length>0) {
+                      for(let i=0;i<products.length;i++) { %>
+                        <ul><li style="color: white;"><%= products[i].name %><img style="height:5rem;width:7rem;" src="/productimage/<%= products[i].Image[0] %>" alt="<%= products[i].Image[0] %>"></li></ul>
+                        
+                        
+							<% } %>
+							<% } else {%>
+							  <tr>
+								<td colspan="5">Category not found</td>
+		  
+							  </tr>
+							 <% } %>
+                </div><div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >TOTAL_AMOUNT
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="<%= orderData.total %>"
+                    class="form-control validate"
+                    
+                  />
+                </div>
+         
+               
+                <div class="">
+                  <div class="form-group mb-3">
+                    <label
+                      for="category"
+                      >PAYMENT_STATUS</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                      name="payment_status"
+                      
+                    >
+                    <option selected ><%= orderData.payment_status%></option>
+                      <option>Pending</option>
+                      <option>Recieved</option>
+                      <option>Refunded</option>
+                     
+                      
+                    </select>
+                  <div class="form-group mb-3">
+                    <label
+                      for="category"
+                      >PAYMENT_METHOD</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                    
+                    >
+                      
+                      <option value="1" selected><%= orderData.payment_method%></option>
+                      <option value="2">RazorPay(UPI)</option>
+                      <option value="3">COD</option>
+                      <option value="4">Wallet</option>
+                      <option value="5">Refunded</option>
+                    </select>
+                    <% if(orderData.cancel_reason != null) { %>
+                    </div><div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >Reason
+                  </label>
+                  <input
+                    id="reason"
+                    name="reason"
+                    type="text"
+                    value="<%= orderData.cancel_reason %>"
+                    class="form-control validate"
+                    
+                  />
+                  
+                </div>
+
+                      <% } %>
+                      <% if(orderData.return_reason != null) {%>
+                      </div><div class="form-group mb-3">
+                        <label
+                          for="name"
+                          >Reason
+                        </label>
+                        <input
+                          id="reason"
+                          name="reason"
+                          type="text"
+                          value="<%= orderData.return_reason %>"
+                          class="form-control validate"
+                          
+                        />
+                        
+                      </div>
+
+                        <% } %>
+
+                    <% if(orderData.order_status === "Cancelled" || orderData.order_status === "returned") { %>
+                       <div class="form-group mb-6">
+                    <label
+                      for="category"
+                      >ORDER_STATUS</label
+                    >
+
+                      <input style="background-color: #54657d; color: azure;" 
+                      class="custom-select tm-select-accounts"
+                        name="order_status" value="Cancelled
+                        "  disabled
+                    >
+                
+                  
+                  </div>
+
+                      <% } else { %>
+                        
+
+                  </div> <div class="form-group mb-6">
+                    <label
+                      for="category"
+                      >ORDER_STATUS</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                        name="order_status" value="<%= orderData.order_status%>"
+                    >
+                      
+                      <option selected><%= orderData.order_status%></option>
+                      <option >placed</option>
+                      <option >Out for delivery</option>
+                      <option > delivered</option>
+                      <option > Cancelled</option>
+                      <option > pending </option>
+                      <option>Returned</option>
+                    </select>
+                    <input type="hidden" value="<%= orderData._id %>" name="id">
+                  
+                  
+                  </div>
+                  <% } %>
+                   
+                     
+                </div>
+                
+            </div>
+            
+            
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<%- include('../layouts/adminfooter.ejs') %>
