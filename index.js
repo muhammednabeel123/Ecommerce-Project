@@ -25,6 +25,6 @@ app.use('/admin',adminRoute)
 
 
 
-app.listen(3005,function(){
+app.listen(3000,function(){
     console.log("E-mart is running");
 })
