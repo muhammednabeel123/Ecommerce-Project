@@ -69,7 +69,7 @@ const sendVerifyMail = async (name, email, user_id) => {
             from: 'muhammednabeel237@gmail.com',
             to: email,
             subject: 'for verification mail',
-            html: '<p> hloo ' + name + ',please click here to <a href="http://127.0.0.1:3005/verify?id=' + user_id + '">verify </a></p> '
+            html: '<p> hloo ' + name + ',please click here to <a href="http://127.0.0.1:3000/verify?id=' + user_id + '">verify </a></p> '
         }
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
@@ -603,7 +603,7 @@ const sendResetPasswordMail = async (name, email, token) => {
             from: 'muhammednabeel237@gmail.com',
             to: email,
             subject: 'for Reset Password ',
-            html: '<p> hloo ' + name + ',please click here to <a href="http://127.0.0.1:3005/forget-password?token=' + token + '">Reset your password</a></p> '
+            html: '<p> hloo ' + name + ',please click here to <a href="http://127.0.0.1:3000/forget-password?token=' + token + '">Reset your password</a></p> '
         }
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
@@ -683,6 +683,7 @@ const viewProduct = async(req,res) =>{
             const ProductCount = await Cart.findOne({user:ObjectId(userData)})
 
             const ProductCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
+    
 
             // console.log(ProductCount)
             if(ProductCount !== null && ProductCount1 !== null )
@@ -699,7 +700,7 @@ const viewProduct = async(req,res) =>{
 
                     
 
-                    res.render('shop-details',{product:productData,category:categoryData,user:userData,userData,wishlistCount:"null "})
+                    res.render('shop-details',{product:productData,category:categoryData,user:userData,userData,wishlistCount:0})
                 }
                 else if(ProductCount1 !== null){
 
@@ -707,11 +708,11 @@ const viewProduct = async(req,res) =>{
 
                 // console.log("332332");
 
-                res.render('shop-details',{product:productData,category:categoryData,user:userData,userData,cartcount:"null" ,wishlistCount})
+                res.render('shop-details',{product:productData,category:categoryData,user:userData,userData,cartcount:0 ,wishlistCount})
 
             }else{
 
-                res.render('shop-details',{product:productData,category:categoryData,user:userData,userData,cartcount:"null" ,wishlistCount:"null"})
+                res.render('shop-details',{product:productData,category:categoryData,user:userData,userData,cartcount:0,wishlistCount:0})
                 // console.log("4");
             }
 
@@ -726,7 +727,7 @@ const viewProduct = async(req,res) =>{
         const categoryData = await addCategoryModel.find({})
         const userData = req.session.userId
         let  cartcount = null
-        res.render('shop-details',{ product:productData,category:categoryData,user:userData,cartcount,wishlistCount:'null' })
+        res.render('shop-details',{ product:productData,category:categoryData,user:userData,cartcount,wishlistCount:0})
 
        }
 
@@ -794,7 +795,7 @@ const shop = async(req,res) =>{
 
                 
 
-                res.render('shop',{product:productData,category:categoryData,user:userData,cartcount,wishlistCount:"null ",totalPages: Math.ceil(count/limit),currentPage:page})
+                res.render('shop',{product:productData,category:categoryData,user:userData,cartcount,wishlistCount:0,totalPages: Math.ceil(count/limit),currentPage:page})
             }
             else if(ProductCount1 !== null){
 
@@ -802,11 +803,11 @@ const shop = async(req,res) =>{
 
              
 
-                res.render('shop',{product:productData,category:categoryData,user:userData,cartcount:"null" ,wishlistCount,totalPages: Math.ceil(count/limit),currentPage:page})
+                res.render('shop',{product:productData,category:categoryData,user:userData,cartcount:0,wishlistCount,totalPages: Math.ceil(count/limit),currentPage:page})
 
             }else{
 
-                res.render('shop',{product:productData,category:categoryData,user:userData,cartcount:"null" ,wishlistCount:"null",totalPages: Math.ceil(count/limit),currentPage:page})
+                res.render('shop',{product:productData,category:categoryData,user:userData,cartcount:0,wishlistCount:0,totalPages: Math.ceil(count/limit),currentPage:page})
                 console.log("4");
             }
 
@@ -896,7 +897,7 @@ const viewProfile = async(req,res)=>{
 
                 
 
-                res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount,wishlistCount:"null "})
+                res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount,wishlistCount:0})
             }
             else if(ProductCount1 !== null){
 
@@ -904,11 +905,11 @@ const viewProfile = async(req,res)=>{
 
                 // console.log("332332");
 
-                res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount:"null" ,wishlistCount})
+                res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount:0,wishlistCount})
 
             }else{
 
-                res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount:"null" ,wishlistCount:"null"})
+                res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount:0,wishlistCount:0})
                 // console.log("4");
             }
             
@@ -933,7 +934,7 @@ const viewProfile = async(req,res)=>{
 
             let  cartcount = null
 
-        res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount,wishlistCount:"null"})
+        res.render('view-profile',{product:productData,category:categoryData,user:userData,cartcount,wishlistCount:0})
 
         }
        
@@ -972,7 +973,7 @@ const Address = async(req,res) =>{
 
                     
 
-                    res.render('add-address',{user:userData,cartcount,wishlistCount:"null "})
+                    res.render('add-address',{user:userData,cartcount,wishlistCount:0})
                 }
                 else if(ProductCount1 !== null){
 
@@ -980,11 +981,11 @@ const Address = async(req,res) =>{
 
                 // console.log("332332");
 
-                res.render('add-address',{user:userData,cartcount:"null" ,wishlistCount})
+                res.render('add-address',{user:userData,cartcount:0,wishlistCount})
 
             }else{
 
-                res.render('add-address',{user:userData,cartcount:"null" ,wishlistCount:"null"})
+                res.render('add-address',{user:userData,cartcount:0,wishlistCount:0})
                 // console.log("4");
             }
             
@@ -1065,7 +1066,7 @@ const userProfile = async(req,res)=>{
 
                     
 
-                    res.render('edit-profile',{user:userData,cartcount,wishlistCount:"null "})
+                    res.render('edit-profile',{user:userData,cartcount,wishlistCount:0})
                 }
                 else if(ProductCount1 !== null){
 
@@ -1073,11 +1074,11 @@ const userProfile = async(req,res)=>{
 
                 // console.log("332332");
 
-                res.render('edit-profile',{user:userData,cartcount:"null" ,wishlistCount})
+                res.render('edit-profile',{user:userData,cartcount:0,wishlistCount})
 
             }else{
 
-                res.render('edit-profile',{user:userData,cartcount:"null" ,wishlistCount:"null"})
+                res.render('edit-profile',{user:userData,cartcount:0,wishlistCount:0})
                 // console.log("4");
             }
             
@@ -1261,18 +1262,18 @@ const viewCart = async(req,res)=>{
 
                 
 
-                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount,wishlistCount:"null "})
+                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount,wishlistCount:0})
             }
             else if(ProductCount1 !== null){
 
                 const wishlistCount = ProductCount1.products.length
 
 
-                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount:"null" ,wishlistCount})
+                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount:0,wishlistCount})
 
             }else{
 
-                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount:"null" ,wishlistCount:"null"})
+                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount:0,wishlistCount:0})
             }
             
         } else {
@@ -1435,7 +1436,7 @@ const loadWhishList = async(req,res) =>{
 
                 
 
-                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,cartcount,wishlistCount:"null "})
+                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,cartcount,wishlistCount:0})
             }
             else if(ProductCount1 !== null){
 
@@ -1443,11 +1444,11 @@ const loadWhishList = async(req,res) =>{
 
                
 
-                res.render('whishlist',{user:userData,product,wishlistData,cartItem,cartcount:"null" ,wishlistCount})
+                res.render('whishlist',{user:userData,product,wishlistData,cartItem,cartcount:0,wishlistCount})
 
             }else{
 
-                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,wishlistCount,cartcount:"null" ,wishlistCount:"null"})
+                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,wishlistCount,cartcount:0,wishlistCount:0})
                 
             }
 
@@ -1686,7 +1687,7 @@ const checkout = async(req,res)=>{
 
                 
 
-                res.render('checkout',{user:userData,cartcount,product,cartItem,cartcount,wishlistCount:"null ",address})
+                res.render('checkout',{user:userData,cartcount,product,cartItem,cartcount,wishlistCount:0,address})
             }
             else if(ProductCount1 !== null){
 
@@ -1694,11 +1695,11 @@ const checkout = async(req,res)=>{
 
  
 
-                res.render('checkout',{user:userData,product,cartItem,cartcount:"null" ,wishlistCount,address})
+                res.render('checkout',{user:userData,product,cartItem,cartcount:0,wishlistCount,address})
 
             }else{
 
-                res.render('checkout',{user:userData,cartcount,product,cartItem,wishlistCount,cartcount:"null" ,wishlistCount:"null",address})
+                res.render('checkout',{user:userData,cartcount,product,cartItem,wishlistCount,cartcount:0,wishlistCount:0,address})
              
             }
 
@@ -1864,7 +1865,7 @@ const postCheckOut = async(req,res)=>{
                 let updatedData = [];
         
                 for (let i = 0; i < products.length; i++) {
-                    console.log(products[i].quantity, ProductDetails[i].Instock, "2 worked");
+                   
                     let updatedStock = ProductDetails[i].Instock - products[i].quantity;
                     updatedData.push(updatedStock);
                     // console.log(updatedStock, "updated");
@@ -1896,7 +1897,7 @@ const postCheckOut = async(req,res)=>{
 
             }
             else if(req.body.payment_method == 'RazorPay(UPI)'){
-                console.log(req.body.checkbox,"hey you should come")
+               
 
                 const user = await Customer.findByIdAndUpdate({_id:req.session.userId},{wallet:wallet})
                 const total = parseInt(req.body.total) 
@@ -2012,7 +2013,7 @@ const postCheckOut = async(req,res)=>{
                 })
                
                 const orderData = await order.save()
-                console.log(orderData,"this orderDta")
+             
 
                 //  console.log(orderData,"hello")
                 const addressexist = await Customer.find({
@@ -2059,11 +2060,6 @@ const postCheckOut = async(req,res)=>{
             }
            
 
-
-            else{
-               
-               res.render('checkout',{message:"please select a option"})
-            }
         } else {
             res.redirect('/login')
             
@@ -2111,7 +2107,7 @@ const confirmOrder = async(req,res)=>{
 
             const orderData = await Order.findOne({}).populate('products.item')
                 .sort({
-                created_date:-1}).limit(1)
+                    createdAt:-1}).limit(1)
 
                 // console.log(orderData._id,"hey id")
                 id = orderData._id
@@ -2302,7 +2298,7 @@ const deleteAddress = async(req,res)=>{
 
                     
 
-                    res.render('edit-address',{user:userData,cartcount,wishlistCount:"null ",address1})
+                    res.render('edit-address',{user:userData,cartcount,wishlistCount:0,address1})
                 }
                 else if(ProductCount1 !== null){
 
@@ -2310,11 +2306,11 @@ const deleteAddress = async(req,res)=>{
 
                 // console.log("332332");
 
-                res.render('edit-address',{user:userData,cartcount:"null" ,wishlistCount,address1})
+                res.render('edit-address',{user:userData,cartcount:0,wishlistCount,address1})
 
             }else{
 
-                res.render('edit-address',{user:userData,cartcount:"null" ,wishlistCount:"null",address1})
+                res.render('edit-address',{user:userData,cartcount:0,wishlistCount:0,address1})
                 // console.log("4");
             }
 
@@ -2412,7 +2408,7 @@ const orderList = async (req,res)=>{
 
                     
 
-                    res.render('order-list',{user:userData,cartcount,wishlistCount:"null",OrderData})
+                    res.render('order-list',{user:userData,cartcount,wishlistCount:0,OrderData})
                 }
                 else if(ProductCount1 !== null){
 
@@ -2420,11 +2416,11 @@ const orderList = async (req,res)=>{
 
                 // console.log("332332");
 
-                res.render('order-list',{user:userData,cartcount:"null" ,wishlistCount,OrderData})
+                res.render('order-list',{user:userData,cartcount:0,wishlistCount,OrderData})
 
             }else{
 
-                res.render('order-list',{user:userData,cartcount:"null" ,wishlistCount:"null",OrderData})
+                res.render('order-list',{user:userData,cartcount:0,wishlistCount:0,OrderData})
                 // console.log("4");
             }
             
@@ -2498,7 +2494,7 @@ const viewOrder = async(req,res)=>{
 
                     
 
-                    res.render('view-order',{user:userData,cartcount,wishlistCount:"null ",productData,orderProd,orderData})
+                    res.render('view-order',{user:userData,cartcount,wishlistCount:0,productData,orderProd,orderData})
                 }
                 else if(ProductCount1 !== null){
 
@@ -2506,11 +2502,11 @@ const viewOrder = async(req,res)=>{
 
                 // console.log("332332");
 
-                res.render('view-order',{user:userData,cartcount:"null" ,wishlistCount,productData,orderProd,orderData})
+                res.render('view-order',{user:userData,cartcount:0,wishlistCount,productData,orderProd,orderData})
 
             }else{
 
-                res.render('view-order',{user:userData,cartcount:"null" ,wishlistCount:"null",productData,orderProd,orderData})
+                res.render('view-order',{user:userData,cartcount:0,wishlistCount:0,productData,orderProd,orderData})
                 // console.log("4");
             }
             
@@ -2749,8 +2745,7 @@ const checkCoupen = async(req,res)=>{
                 discount = coupenData.discount
                 total = req.body.total
                 
-                 console.log(maxRedeem,minPurchase,total,discount,"hello","how are you")
-
+               
                  if(coupenData.expiry_date > coupenData.created_date){
                     
                 if (total>minPurchase) {

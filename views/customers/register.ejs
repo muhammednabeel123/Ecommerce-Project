@@ -9,8 +9,13 @@
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+              <% if(typeof message !=='undefined') { %>
 
-              <form method="POST" action="/register" onsubmit = "return a()">
+								<p style="color: rgb(208, 0, 0)">
+								<%= message %> </p>
+								<% } %>
+
+              <form method="post" action="" onsubmit = "return a()">
               
               
                 <div class="form-outline mb-4">
@@ -22,11 +27,7 @@
                  
               <input  class="form-control"  id="email1" type="email" placeholder="Email" name="email" required>
               <p id="message1" style="color: rgb(255, 0, 0);"> </p>
-              <% if(typeof message !=='undefined') { %>
-
-								<p style="color: rgb(0, 208, 17)">
-								<%= message%> </p>
-								<% } %>
+             
         </div> 
                 
                 <div class="form-outline mb-4">
@@ -41,8 +42,8 @@
                 </div>
                 <p id="message" style="color: rgb(255, 0, 0);"> </p>
                 <div class="d-flex justify-content-center">
-                  <button type="submit"   onclick= "checkpassword()" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"> <a href=""
-                      style="color: white;">Register</a> </button>
+                  <button type="submit"   onclick= "checkpassword()" class="btn  btn-block btn-lg gradient-custom-4 text-body" style="background-color:#7fad39; ;"> <p
+                      style="color: white;">Register</p> </button>
                 </div>
                 <div class="mt-3">
 
