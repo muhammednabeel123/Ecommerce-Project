@@ -170,43 +170,33 @@
 
     <div class="container">
       <button id="myButton" class="mb-5" style="color: white; background-color: #7fad39; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">Address</button>
-      <div class="container">
-        <div class="row" id="myDiv" style="display:none; width: 1000px; height: 200px; overflow: auto;" class="mt-3"> <% if(address) { %>
-            <% for(i=0;i<address.length;i++) {
-              %>
-              <div class="col-sm-4">
-                <div class="card" style="width: 1000px; height: 200px;">
-                
-                    <div class="card-body">
-                      <span id="fname<%= i+1 %>"><%= address[i].fname %></span>
-                      <span id="lname<%= i+1 %>"><%= address[i].lname %></span>
+      <div class="container-fluid">
+        <div class="row" id="myDiv" style="display:none;">
+          <% if(address) { %>
+            <% for(i=0;i<address.length;i++) { %>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title"><span id="fname<%= i+1 %>"><%= address[i].fname %></span> <span id="lname<%= i+1 %>"><%= address[i].lname %></span></h5>
+                    <p class="card-text">
                       <span id="nametest<%= i+1 %>"><%= address[i].address1 %></span><br>
-                      <span id="country<%= i+1 %>"><%= address[i].country %></span><br>
-                      <span id="state<%= i+1 %>"><%= address[i].state %></span><br>
-                      <span id="postalcode<%= i+1 %>"><%= address[i].postalcode %></span>
-                      <span id="city<%= i+1 %>"><%= address[i].city %></span>
-                      <span id="mobile<%= i+1 %>"><%= address[i].mobile %></span>
+                      <span id="city<%= i+1 %>"><%= address[i].city %></span>, <span id="state<%= i+1 %>"><%= address[i].state %></span><br>
+                      <span id="country<%= i+1 %>"><%= address[i].country %></span> <span id="postalcode<%= i+1 %>"><%= address[i].postalcode %></span><br>
+                      <span id="mobile<%= i+1 %>"><%= address[i].mobile %></span><br>
                       <span id="email<%= i+1 %>"><%= address[i].email %></span>
-                      <div class="form-check">
-                        <input class="form-check-input" onclick="order()" input type="radio" id="radio" value="<%= i+1 %>" name="radio">
-                        <label class="form-check-label" for="box1" name="box">Select</label>
-                      </div>
+                    </p>
+                    <div class="form-check">
+                      <input class="form-check-input" onclick="order()" type="radio" id="radio<%= i+1 %>" value="<%= i+1 %>" name="radio">
+                      <label class="form-check-label" for="radio<%= i+1 %>" name="box">Select</label>
                     </div>
-                   
-                    
-                                    </div>
-                                  </div>
-                                  <% } } %>
-                                  </div>
-                                
-        
-        
-
-
-        <div class="col-lg-12">
-
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <% } %>
         </div>
       </div>
+      
 
       <div class="checkout__form mt-3">
         <h4>Billing Details</h4>
