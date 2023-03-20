@@ -136,7 +136,7 @@ console.log(moment(startOfWeek).toDate());
 const orders = await Order.aggregate([
     {
       $match: {
-        order_status: "delivered",
+        order_status:"delivered",
         createdAt: {
           $gte:moment(startOfWeek).toDate(),
           $lte:moment(endOfWeek).toDate()

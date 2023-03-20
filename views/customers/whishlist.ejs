@@ -86,7 +86,7 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+9756412712</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>
@@ -133,7 +133,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr> <% if (product) {
+                               
+                                <tr> <% if (wishlistData != null && wishlistData.products.length !== 0) {
                                     for(let i=0;i<product.length;i++) { %>
                                     <td class="shoping__cart__item">
                                         <img style="height:5rem;width:5rem;" src="/productimage/<%= product[i].Image[0] %>" alt="<%= product[0].Image %>">
@@ -162,7 +163,7 @@
                                 <% } %>
 							<% } else {%>
 							  <tr>
-								<td colspan="5">Cart is empty</td>
+								<td colspan="5">Favourites is empty</td>
 		  
 							  </tr>
 							 <% } %>
@@ -179,14 +180,30 @@
     <!-- Footer Section Begin -->
     
     <!-- Footer Section End -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        
         function addcart(productId){
             $.ajax({
                 url:`add-cart/${productId}`,
                 method:'get',
              success:function(response){
-                alert('added to cart successfully')
+                const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'added to wishlist'
+                                })
              }
                 
             })

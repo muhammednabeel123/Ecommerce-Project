@@ -138,9 +138,15 @@ user_route.get('/sortH',userController.sortH)
 
 user_route.get('/sortL',userController.sortL)
 
+user_route.get('/sortH1',userController.sortH1)
+
+user_route.get('/sortL1',userController.sortL1)
+
 user_route.post('/check_coupen',userController.checkCoupen)
 
 user_route.post('/return-reason',userController.returnReason)
+
+user_route.post("/search",userController.search1)
 
 
 

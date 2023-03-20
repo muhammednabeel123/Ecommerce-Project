@@ -235,7 +235,26 @@
              url:`add-wishlist/${productId}`,
              method:'get',
              success:function(response){
-                const Toast = Swal.mixin({
+                if(response.success ==='failed'){
+                    const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'error',
+                                title: 'please sign-in'
+                                })
+                }
+                if(response.success ==='success'){
+                    const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top',
                                 showConfirmButton: false,
@@ -251,6 +270,8 @@
                                 icon: 'success',
                                 title: 'added to wishlist'
                                 })
+                }
+               
           
              }
          })
@@ -278,6 +299,54 @@
                                 icon: 'success',
                                 title: 'added to cart'
                                 })
+             }
+                
+            })
+        }
+
+        function addcart(productId){
+            $.ajax({
+                url:`add-cart/${productId}`,
+                method:'get',
+                success:function(response){
+                if(response.success ==='failed'){
+                    const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'error',
+                                title: 'please sign-in'
+                                })
+                }
+                if(response.success ==='success'){
+                    const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'added to cart'
+                                })
+                }
+               
+          
              }
                 
             })

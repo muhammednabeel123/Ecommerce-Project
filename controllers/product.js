@@ -3,7 +3,7 @@ const { findById } = require('../models/Products');
 const addProductModel =  require('../models/Products')
 const addCategoryModel =  require('../models/category')
 
-const addproduct =  async(req,res) =>{
+const addproduct =  async(req,res,next) =>{
     try {
         const categoryData = await addCategoryModel.find({__v:0})
 
@@ -23,14 +23,14 @@ const addproduct =  async(req,res) =>{
 
 
 
-const insertProduct = async(req,res) => {
+const insertProduct = async(req,res,next) => {
     try {
 
         // console.log(req.files);
         let files = []
         const imageUpload = await (function(){
-            for(let i=0;i<4;i++){
-                files[i] = req.files[i].filename
+            for(let i=0;i<req.files.length;i++){
+                files = req.files[i].filename
             }
             return files
         })()
@@ -61,7 +61,7 @@ const insertProduct = async(req,res) => {
 
 
 }
-const deleteProduct = async(req,res)=>{
+const deleteProduct = async(req,res,next)=>{
     try {
         const id = req.query.id;
         await addProductModel.deleteOne({_id:id})
@@ -74,7 +74,7 @@ const deleteProduct = async(req,res)=>{
         
     }
 }
-const editProduct = async(req,res)=>{
+const editProduct = async(req,res,next)=>{
 
     try {
         const id = req.query.id
@@ -97,18 +97,24 @@ const editProduct = async(req,res)=>{
     }
 }
 
-const viewProduct = async(req,res) =>{
-    
-    const id = req.query.id
-    const productData =  await addProductModel.findById({_id:id})
-    res.render('viewprod',{ product:productData })
+const viewProduct = async(req,res,next) =>{
+    try {
+        const id = req.query.id
+        const productData =  await addProductModel.findById({_id:id})
+        res.render('viewprod',{ product:productData })
+        
+    } catch (error) {
+        console.log(error.message); 
+        next(error.message)
+    }
+  
 
 
 }
 
 
 
-const updateProduct = async(req,res)=>{
+const updateProduct = async(req,res,next)=>{
     try {
         
         if(req.files){ 
@@ -136,7 +142,8 @@ const updateProduct = async(req,res)=>{
    
         
     } catch (error) {
-        console.log(error.message);
+        console.log(error.message); 
+        next (error.message)
     }
 
 }

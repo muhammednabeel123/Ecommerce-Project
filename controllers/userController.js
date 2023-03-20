@@ -47,6 +47,7 @@ const securePassword = async (password) => {
 
     } catch (error) {
         console.log(error.message)
+next()
 
     }
 }
@@ -81,7 +82,8 @@ const sendVerifyMail = async (name, email, user_id) => {
         })
     }
     catch (error) {
-        console.log(error.message);
+        console.log(error.message)
+next();
     }
 
 
@@ -103,6 +105,7 @@ const loadRegister = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
     }
 }
 const insertUSer = async (req, res) => {
@@ -169,11 +172,12 @@ const insertUSer = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
 
     }
 
 }
-const resendOtp = async(req,res)=>{
+const resendOtp = async(req,res,next)=>{
     try {
 
         number = req.session.userData.mno 
@@ -185,14 +189,15 @@ const resendOtp = async(req,res)=>{
                             res.redirect('/confirm-otp')
         
     } catch (error) {
-       console.log(error.message); 
+       console.log(error.message)
+next(); 
         
     }
 }
 
 
 
-const verifyLogin = async (req,res) => {
+const verifyLogin = async (req,res,next) => {
     try {
         // console.log(req.body)
         const email = req.body.email;
@@ -238,6 +243,7 @@ const verifyLogin = async (req,res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
         console.log("submit failed 3")
     }
 
@@ -369,6 +375,7 @@ const loadHome = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+        next(error.message)
     }
 }
 
@@ -432,6 +439,7 @@ const insertOtp = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
 
     }
 
@@ -443,6 +451,7 @@ const confirmLoadOtp = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
     }
 }
 const verifyOtp = async (req, res) => {
@@ -525,6 +534,7 @@ const verifyOtp = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
 
     }
 
@@ -541,7 +551,8 @@ const loadForgetPassword = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error.message);
+        console.log(error.message)
+next();
 
     }
 
@@ -581,6 +592,7 @@ const forgetVerify = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
 
     }
 
@@ -615,7 +627,8 @@ const sendResetPasswordMail = async (name, email, token) => {
         })
     }
     catch (error) {
-        console.log(error.message);
+        console.log(error.message)
+next();
     }
 }
 const forgetPasswordLoad = async (req, res) => {
@@ -645,6 +658,7 @@ const userLogout = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+next()
 
     }
 
@@ -662,12 +676,13 @@ const resetPassword = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error.message);
+        console.log(error.message)
+next();
 
     }
 }
 
-const viewProduct = async(req,res) =>{
+const viewProduct = async(req,res,next) =>{
     try {
         if(req.session.userId){
            
@@ -675,7 +690,6 @@ const viewProduct = async(req,res) =>{
             const productData =  await addProductModel.findById({_id:id})
             const categoryData = await addCategoryModel.find({})
             const userData =  await Customer.findById({_id:req.session.userId})
-            
             // const ProductCount = await Cart.findOne({user:user._id})
             // console.log('product not added but ',ProductCount);
             
@@ -734,28 +748,30 @@ const viewProduct = async(req,res) =>{
         
     } catch (error) {
         console.log(error.message)
+next(error.message)
         
     }
 }
 
-const login = async(req,res) =>{
+const login = async(req,res,next) =>{
     try {
         res.render('login')
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
-const shop = async(req,res) =>{
+const shop = async(req,res,next) =>{
     try {
         if(req.session.userId){
             var search=''
             if(req.query.search){
                 search = req.query.search
             }
-            
+    
             
             const categoryData = await addCategoryModel.find({})
 
@@ -775,7 +791,7 @@ const shop = async(req,res) =>{
                 .countDocuments()
                
             const userData = await Customer.findById({_id:req.session.userId})
-
+    
             const ProductCount = await Cart.findOne({user:ObjectId(userData)})
 
             const ProductCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
@@ -815,27 +831,19 @@ const shop = async(req,res) =>{
         }
         else{
 
-            var search=''
-            if(req.query.search){
-                search = req.query.search
-            }
+           
             const categoryData = await addCategoryModel.find({__v:0});
 
             // console.log(categoryData)
-            var page = 1;
-            if(req.query.page){
-                page = req.query.page
-            }
+          
 
             const limit = 3;
-            const productData = await addProductModel.find({__v:0,
-            $or:[{ name:{ $regex:'.*'+search+'.*',$options:'i'  }}]})
-            .limit(limit * 1).skip((page - 1)*limit).exec();
+            const productData = await addProductModel.find({__v:0,})
+            
 
         
-            const count = await addProductModel.find({__v:0,
-                $or:[{ name:{ $regex:'.*'+search+'.*',$options:'i'  }}]})
-                .countDocuments()
+            const count = await addProductModel.find({})
+                
                
             const userData = req.session.userId
             let cartcount = 0
@@ -850,21 +858,23 @@ const shop = async(req,res) =>{
 
         
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
+        next();
         
     }
 }
-const logout = async(req,res)=>{
+const logout = async(req,res,next)=>{
     try {
         req.session.destroy();
         
         res.redirect('/');
     }
     catch(error){
-        console.log(error.message);
+        console.log(error.message)
+        next();
     }
 }
-const viewProfile = async(req,res)=>{
+const viewProfile = async(req,res,next)=>{
     try {
         if(req.session.userId){
 
@@ -941,11 +951,12 @@ const viewProfile = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
-const Address = async(req,res) =>{
+const Address = async(req,res,next) =>{
     try {
         if(req.session.userId){
             
@@ -1001,12 +1012,14 @@ const Address = async(req,res) =>{
         
     } catch (error) {
         console.log(error.message)
+next()
+        
         
     }
 }
 
 
-const addAddress = async(req,res) =>{
+const addAddress = async(req,res,next) =>{
     try {
         if (req.session.userId) {
 
@@ -1039,11 +1052,12 @@ const addAddress = async(req,res) =>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 } 
 
-const userProfile = async(req,res)=>{
+const userProfile = async(req,res,next)=>{
     try {
         if(req.session.userId){
             const userData = await Customer.findById({_id:req.session.userId})
@@ -1093,11 +1107,12 @@ const userProfile = async(req,res)=>{
        
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
-const editProfile = async(req,res)=>{
+const editProfile = async(req,res,next)=>{
     try {
 
 
@@ -1134,10 +1149,11 @@ const editProfile = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
     }
 }
 
-const addCart = async(req,res)=>{
+const addCart = async(req,res,next)=>{
     try {
         if(req.session.userId){
 
@@ -1176,7 +1192,7 @@ const addCart = async(req,res)=>{
                     // console.log(cartData,"cartdata added")
                     const cartDataUpdate = await Cart.updateOne({user:ObjectId(userData)},{$push:{products:{...cartitem}}})
                     // console.log(cartDataUpdate,"cartdata updated")
-                    res.redirect('/')
+                    res.json({success:"success"})
                     
     
     
@@ -1192,8 +1208,8 @@ const addCart = async(req,res)=>{
 
                     //  const cart1Data = await Cart.findOneAndUpdate({user:req.session.userId,'products.item':id},{$mul:{"products.$.pricetotal": 2 }})
     
-                    console.log(cartData,"cartquantinty increased")
-                    res.redirect('/')
+                 
+                    res.json({success:"success"})
 
                      
 
@@ -1207,8 +1223,8 @@ const addCart = async(req,res)=>{
                         pricetotal:productData.price}]
                     })
                     const cartData = await cartdata.save()
-                    console.log(cartData," cart data added2")
-                    res.redirect('/')
+                   
+                    res.json({success:"success"})
                 }
     
                
@@ -1216,7 +1232,7 @@ const addCart = async(req,res)=>{
             }
         
         else{
-            res.redirect('/login')
+            res.json({success:"failed"})
         }
         
 
@@ -1227,28 +1243,28 @@ const addCart = async(req,res)=>{
 
     }
     
-const viewCart = async(req,res)=>{
+const viewCart = async(req,res,next)=>{
     try {
         if (req.session.userId) {
             const userData = await Customer.findById({_id:req.session.userId})
             const cartData = await Cart.findOne({user:ObjectId(userData)}).populate('products.item')
+           
+           
+            const cartProducts = cartData.products
+            console.log(cartProducts.length !== 0 )
+            if (cartData) {
+                const cartItem = await cartData.products
+                const prodata = cartItem.map(n=>n.item)
             
-            
-            
-            const cartItem = await cartData.products
-            const prodata = cartItem.map(n=>n.item)
-        
-
-
-
-            const productData = await addProductModel.find({_id:{$in:prodata} })
-
-            const ProductCount = await Cart.findOne({user:ObjectId(userData)})
-
-            const ProductCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
-
-        
-            if(ProductCount !== null && ProductCount1 !== null )
+    
+    
+    
+                const productData = await addProductModel.find({_id:{$in:prodata} })
+    
+                const ProductCount = await Cart.findOne({user:ObjectId(userData)})
+    
+                const ProductCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
+                if(ProductCount !== null && ProductCount1 !== null )
             {
                 
                 const cartcount = ProductCount.products.length
@@ -1262,19 +1278,31 @@ const viewCart = async(req,res)=>{
 
                 
 
-                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount,wishlistCount:0})
+                res.render('shoping-cart',{user:userData,cartData,product:productData,cartItem,cartcount,wishlistCount:0})
             }
             else if(ProductCount1 !== null){
 
                 const wishlistCount = ProductCount1.products.length
 
 
-                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount:0,wishlistCount})
+                res.render('shoping-cart',{user:userData,cartData,product:productData,cartItem,cartcount:0,wishlistCount})
 
             }else{
 
-                res.render('shoping-cart',{user:userData,cart:cartData,product:productData,cartItem,cartcount:0,wishlistCount:0})
+                res.render('shoping-cart',{user:userData,cartData,product:productData,cartItem,cartcount:0,wishlistCount:0})
             }
+    
+                
+            }else{
+                res.render('shoping-cart',{user:userData,cartData:null,cartItem:null,cartcount:0,wishlistCount:0})
+
+            }
+            
+            
+            
+           
+        
+            
             
         } else {
 
@@ -1285,11 +1313,12 @@ const viewCart = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
-const deleteItem = async(req,res)=>{
+const deleteItem = async(req,res,next)=>{
 try {
     
     id=req.query.id
@@ -1305,18 +1334,19 @@ try {
 } catch (error) {
 
     console.log(error.message)
+next()
     
 }
 
     
 }
-const addWhishList = async(req,res)=>{
+const addWhishList = async(req,res,next)=>{
     try {
         if (req.session.userId) {
 
             id = req.params.productId
 
-            console.log(id)
+            
 
             const productData = await addProductModel.findById({_id:id})
 
@@ -1344,11 +1374,11 @@ const addWhishList = async(req,res)=>{
 
                    
 
-                    res.redirect('/')
+                    res.json({success:"success"})
 
 
                 }else{
-                    res.redirect('/')
+                    res.json({success:"success"})
 
                 }
 
@@ -1366,7 +1396,7 @@ const addWhishList = async(req,res)=>{
                
              
 
-               res.redirect('/')
+               res.json({success:"success"})
 
 
 
@@ -1376,17 +1406,18 @@ const addWhishList = async(req,res)=>{
             
         } else {
 
-            res.redirect('/login')
+            res.json({success:"failed"})
         }
         
     } catch (error) {
 
         console.log(error.message)
+next()
         
     }
 }
 
-const loadWhishList = async(req,res) =>{
+const loadWhishList = async(req,res,next) =>{
     try {
     
 
@@ -1400,57 +1431,58 @@ const loadWhishList = async(req,res) =>{
            
 
             const wishlistData = await Wishlist.findOne({user:ObjectId(userData)})
+            if(wishlistData){
+                const cartItem = await wishlistData.products
 
-            const cartItem = await wishlistData.products
+                const prodata = cartItem.map(n=>n.item)
+    
+                // console.log(prodata,'prodata')
+    
+                const product = await addProductModel.find({_id:{$in:prodata}}) 
+    
+    
+                const ProductCount = await Cart.findOne({user:ObjectId(userData)})
+    
+                const ProductCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
+                if(ProductCount !== null && ProductCount1 !== null )
+                {
+                    const cartcount = ProductCount.products.length
+                    const wishlistCount = ProductCount1.products.length
+                  
+                    res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,cartcount,wishlistCount})
+                    
+                }else if(ProductCount !== null){
+    
+                    const cartcount = ProductCount.products.length
+                    
+    
+                    
+    
+                    res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,cartcount,wishlistCount:0})
+                }
+                else if(ProductCount1 !== null){
+    
+                    const wishlistCount = ProductCount1.products.length
+    
+                   
+    
+                    res.render('whishlist',{user:userData,product,wishlistData,cartItem,cartcount:0,wishlistCount})
+    
+                }else{
+    
+                    res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,wishlistCount,cartcount:0,wishlistCount:0})
+                    
+                }
 
-            const prodata = cartItem.map(n=>n.item)
 
-            // console.log(prodata,'prodata')
+            }else{ 
+                res.render('whishlist',{user:userData,wishlistData,cartcount:0,wishlistCount:0})
+            }
 
-            const product = await addProductModel.find({_id:{$in:prodata}}) 
-
-            // const productCount = await  Wishlist.findOne({user:ObjectId(userData)})
-
-            // const productCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
-
-            // const wishlistCount = productCount.products.length
-
-            // const cartcount = productCount.products.length
-
-            const ProductCount = await Cart.findOne({user:ObjectId(userData)})
-
-            const ProductCount1 = await  Wishlist.findOne({user:ObjectId(userData)})
+          
 
             // console.log(ProductCount)
-            if(ProductCount !== null && ProductCount1 !== null )
-            {
-                const cartcount = ProductCount.products.length
-                const wishlistCount = ProductCount1.products.length
-              
-                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,cartcount,wishlistCount})
-                
-            }else if(ProductCount !== null){
-
-                const cartcount = ProductCount.products.length
-                
-
-                
-
-                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,cartcount,wishlistCount:0})
-            }
-            else if(ProductCount1 !== null){
-
-                const wishlistCount = ProductCount1.products.length
-
-               
-
-                res.render('whishlist',{user:userData,product,wishlistData,cartItem,cartcount:0,wishlistCount})
-
-            }else{
-
-                res.render('whishlist',{user:userData,cartcount,product,wishlistData,cartItem,wishlistCount,cartcount:0,wishlistCount:0})
-                
-            }
+          
 
 
             // res.render('whishlist',{user:userData,cartcount,product,wishlistData,wishlistCount,cartItem})
@@ -1474,11 +1506,13 @@ const loadWhishList = async(req,res) =>{
         }
     } catch (error) {
         console.log(error.message)
+next()
     }
 }
 
-const increment = async(req,res)=>{
+const increment = async(req,res,next)=>{
     try {
+        
         // console.log("hello")
         let id = req.params.productId
         // console.log(id)
@@ -1558,17 +1592,18 @@ const increment = async(req,res)=>{
     } catch (error) {
         
         console.log(error.message)
+next()
         
     }
 }
-// const decrement = async(req,res)=>{
+// const decrement = async(req,res,next)=>{
 
 //     let id =req.params.productId
 //     let cartData = await Cart.findOne
 
 // }
 
-const decrement = async(req,res)=> {
+const decrement = async(req,res,next)=> {
     try {
 
         // console.log("hello  fdsfsdfsd")
@@ -1611,11 +1646,12 @@ const decrement = async(req,res)=> {
         
     } catch (error) {
         console.log(error.message)
+next()
     }
     
 }
 
-const deleteWishList = async(req,res)=>{
+const deleteWishList = async(req,res,next)=>{
     try {
         
         id=req.query.id
@@ -1631,13 +1667,14 @@ const deleteWishList = async(req,res)=>{
     } catch (error) {
     
         console.log(error.message)
+next()
         
     }
     
         
 }
 
-const checkout = async(req,res)=>{
+const checkout = async(req,res,next)=>{
     try {
         if (req.session.userId) {
 
@@ -1714,9 +1751,10 @@ const checkout = async(req,res)=>{
         }
     } catch (error) {
         console.log(error.message)
+next()
     }
 }
-const postCheckOut = async(req,res)=>{
+const postCheckOut = async(req,res,next)=>{
     try {
       
         if (req.session.userId) {
@@ -1730,8 +1768,7 @@ const postCheckOut = async(req,res)=>{
             const coupen = req.body.coupen
             const wallet = req.body.money
             const totalprice = req.body.totalPrice
-            console.log(req.body,"this is body")
-            console.log(req.body.payment_method,"this is payment method")
+    
           
 
             if(req.body.payment_method == 'Cash on Delivery'){
@@ -2084,7 +2121,7 @@ const postCheckOut = async(req,res)=>{
         
     }
 }
-const confirmOrder = async(req,res)=>{
+const confirmOrder = async(req,res,next)=>{
     try {
         if (req.session.userId) {
 
@@ -2107,7 +2144,7 @@ const confirmOrder = async(req,res)=>{
 
             const orderData = await Order.findOne({}).populate('products.item')
                 .sort({
-                    createdAt:-1}).limit(1)
+                createdAt:-1}).limit(1)
 
                 // console.log(orderData._id,"hey id")
                 id = orderData._id
@@ -2164,7 +2201,7 @@ const confirmOrder = async(req,res)=>{
         
     }
 }
-const viewAddress = async(req,res)=>{
+const viewAddress = async(req,res,next)=>{
     try {
         if(req.session.userId){
             
@@ -2226,11 +2263,12 @@ const viewAddress = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
-const deleteAddress = async(req,res)=>{
+const deleteAddress = async(req,res,next)=>{
     try {
         id=req.query.id
 
@@ -2244,12 +2282,13 @@ const deleteAddress = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
 
-   const viewEditAddress = async(req,res) =>{
+   const viewEditAddress = async(req,res,next) =>{
     try {
 
       
@@ -2332,7 +2371,7 @@ const deleteAddress = async(req,res)=>{
 
 
 
-const editAddress = async(req,res)=>{
+const editAddress = async(req,res,next)=>{
     try {
         if (req.session.userId) {
 
@@ -2373,7 +2412,7 @@ const editAddress = async(req,res)=>{
     }
 }
 
-const orderList = async (req,res)=>{
+const orderList = async (req,res,next)=>{
     try {
         if(req.session.userId){
 
@@ -2436,11 +2475,12 @@ const orderList = async (req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
-const viewOrder = async(req,res)=>{
+const viewOrder = async(req,res,next)=>{
     try {
 
         if(req.session.userId){
@@ -2525,7 +2565,7 @@ const viewOrder = async(req,res)=>{
     }
 }
 
-const cancelOrder = async(req,res)=>{
+const cancelOrder = async(req,res,next)=>{
     try {
         
         
@@ -2583,6 +2623,7 @@ const cancelOrder = async(req,res)=>{
     } catch (error) {
 
         console.log(error.message)
+next()
         
     }
 }
@@ -2610,7 +2651,7 @@ const checkoutPayment = async(amount) =>{
         
     }
 }
-const loadamount = async(req,res)=>{
+const loadamount = async(req,res,next)=>{
    try {
     const { amount } = req.body
     // console.log(req.body.total,"hello")
@@ -2621,12 +2662,13 @@ const loadamount = async(req,res)=>{
     
    } catch (error) {
     console.log(error.message)
+next()
     
    }
 
 }
 
-const postPay = async(req,res)=>{
+const postPay = async(req,res,next)=>{
     try {
        
         let serverOrder = req.body.orderId
@@ -2697,36 +2739,39 @@ const postPay = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
 
 
-const sortH = async(req,res)=>{
+const sortH = async(req,res,next)=>{
     try {
        
         const productData = await addProductModel.find({__v:0}).sort({price:1})
         res.json({product:productData})
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
-const sortL = async(req,res)=>{
+const sortL = async(req,res,next)=>{
     try {
         const productData = await addProductModel.find({__v:0}).sort({price:-1})
         res.json({product:productData})
     } catch (error) {
         console.log(error)
+        next()
         
     }
 }
 
-const checkCoupen = async(req,res)=>{
+const checkCoupen = async(req,res,next)=>{
     try {
        const coupen = req.body.COUPEN
         let  total = req.body.total
-      console.log(total)
+     
 
        coupenData = await Coupen.findOne({code:coupen})
        console.log(coupenData,"hey hello")
@@ -2803,7 +2848,7 @@ const checkCoupen = async(req,res)=>{
 
 
 
-const returnReason = async(req,res)=>{
+const returnReason = async(req,res,next)=>{
     try {
        const reason = req.body.reason
        const id = req.body.id
@@ -2813,9 +2858,99 @@ const returnReason = async(req,res)=>{
         
     } catch (error) {
         console.log(error.message)
+next()
         
     }
 }
+
+const sortH1 = async(req,res,next)=>{
+    try {
+        
+        id = req.query.value
+        console.log(id)
+        const productData = await addProductModel.find({ category: { $in: [id] } }).sort({ price: 1 });
+
+     
+
+        res.json({product:productData})
+       
+        
+    } catch (error) {
+        console.log(error.message)
+        next()
+        
+    }
+}
+const sortL1 = async(req,res,next)=>{
+    try {
+        
+        id = req.query.value
+        console.log(id)
+        const productData = await addProductModel.find({ category: { $in: [id] } }).sort({ price: -1 });
+
+        
+
+        res.json({product:productData})
+       
+        
+    } catch (error) {
+        console.log(error.message)
+        next()
+        
+    }
+}
+const search1 = async (req, res) => {
+    try {
+      let page = parseInt(req.body.page) || 1;
+      let searchQuery = req.body.search || '';
+      let categoryIds = req.body.category || null;
+      let sortOption = req.body.sort || '';
+  
+      const query = {
+        $or: [
+          { name: { $regex: "." + searchQuery + ".", $options: "i" } },
+         
+        ],
+      };
+  
+      if (categoryIds && categoryIds.length > 0) {
+        query.category = { $in: categoryIds };
+      }
+  
+      let sort = {};
+  
+      switch (sortOption) {
+        case 'Low to high':
+          sort = { price: 1 };
+          break;
+        case 'High to low':
+          sort = { price: -1 };
+          break;
+      }
+        const limit = 6;
+      const products = await addProductModel.find(query)
+        .sort(sort)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec();
+
+      console.log(products) 
+  
+      const count = await addProductModel.countDocuments(query);
+  
+      const totalPages = Math.ceil(count / limit);
+  
+      res.json({
+        product: products,
+        currentPage: page,
+        totalPages: totalPages,
+      });
+    } catch (error) {
+        console.log(error.message)
+        
+    }
+  };
+  
 
 
         
@@ -2856,7 +2991,7 @@ module.exports = {
     Address,addAddress,userProfile,editProfile,
     addCart,viewCart,deleteItem,addWhishList,loadWhishList,increment,decrement,
     deleteWishList,checkout,postCheckOut,confirmOrder,viewAddress,deleteAddress,editAddress,viewEditAddress,orderList,
-    viewOrder,cancelOrder,checkoutPayment,loadamount,postPay,sortH,sortL,checkCoupen,returnReason
+    viewOrder,cancelOrder,checkoutPayment,loadamount,postPay,sortH,sortL,checkCoupen,returnReason,sortH1,sortL1,search1
 
     
 

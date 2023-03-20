@@ -18,7 +18,25 @@
 
                     <div class="invoice p-5">
 
-                        <h5>Your order Confirmed!</h5>
+                        <h5 style="color: green;;">Your order has been confirmed!</h5>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <a href="/shop">
+                              <button style="color: white; background-color: #7fad39; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+                                Back to Shop
+                              </button>
+                            </a>
+                          </div>
+                          
+                          <style>
+                            @media only screen and (max-width: 600px) {
+                              div {
+                                justify-content: center;
+                              }
+                            }
+                          </style>
+                          
+
+
 
                         <span class="font-weight-bold d-block mt-4"><%= user.name %></span>
                         <span>You order has been confirmed and will be shipped in next two days!</span>
