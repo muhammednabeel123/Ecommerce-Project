@@ -73,7 +73,7 @@ admin_route.post('/add-category',upload.single('image'), addcategoryController.i
 
 admin_route.post('/delete-product',auth.isLogin,addproductController.deleteProduct)
 
-admin_route.get('/edit-product',addproductController.editProduct)
+admin_route.get('/edit-product',auth.isLogin,addproductController.editProduct)
 
 admin_route.post('/edit-product',upload.array('image',4),addproductController.updateProduct)
 
@@ -91,39 +91,39 @@ admin_route.post('/edit-category',auth.isLogin,upload.single('image'),addcategor
 
 admin_route.get('/logout',adminController.logout)
 
-admin_route.get('/orders',adminController.viewOrder)
+admin_route.get('/orders',auth.isLogin,adminController.viewOrder)
 
-admin_route.get('/edit-order',adminController.order)
+admin_route.get('/edit-order',auth.isLogin,adminController.order)
 
 admin_route.post('/edit-order',adminController.updateOrder)
 
-admin_route.get('/coupen',adminController.coupen)
+admin_route.get('/coupen',auth.isLogin,adminController.coupen)
 
 admin_route.post('/coupen',adminController.addCoupen)
 
-admin_route.get('/view-coupen',adminController.viewCoupen)
+admin_route.get('/view-coupen',auth.isLogin,adminController.viewCoupen)
 
 admin_route.get('/category',adminController.loadCategory)
 
 admin_route.post('/delete-coupen',adminController.deleteCoupen)
 
-admin_route.get('/banner',adminController.loadBanner)
+admin_route.get('/banner',auth.isLogin,adminController.loadBanner)
 
-admin_route.get('/add-banner',adminController.addBanner)
+admin_route.get('/add-banner',auth.isLogin,adminController.addBanner)
 
 admin_route.post('/add-banner',upload.single('image'),adminController.editBanner)
 
 admin_route.post('/delete-banner',adminController.deleteBanner)
 
-admin_route.get('/delete-image',adminController.deleteImage)
+admin_route.get('/delete-image',auth.isLogin,adminController.deleteImage)
 
-admin_route.get('/sales',adminController.loadSales)
+admin_route.get('/sales',auth.isLogin,adminController.loadSales)
 
 admin_route.post('/sales-report',adminController.salesReport)
 
 admin_route.post('/export-sales',adminController.exportSales)
 
-admin_route.get('/edit-coupen',adminController.editCoupen)
+admin_route.get('/edit-coupen',auth.isLogin,adminController.editCoupen)
 
 admin_route.post('/edit-coupen',adminController.postCoupen)
 

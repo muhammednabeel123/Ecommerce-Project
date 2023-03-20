@@ -133,43 +133,27 @@ console.log(startOfWeek);
 console.log(moment(startOfWeek).toDate());
 
 // Find the orders with status "delivered" and delivery date within the last 7 days
-const orders = await Order.aggregate([
-    {
-      $match: {
-        order_status:"delivered",
-        createdAt: {
-          $gte:moment(startOfWeek).toDate(),
-          $lte:moment(endOfWeek).toDate()
-        }
-      }
-    },
-    { $unwind: "$products" },
-  {
-    $lookup: {
-      from: "products",
-      localField: "products.item",
-      foreignField: "_id",
-      as: "product"
+const orders = await Order.aggregate([{
+    $match: { order_status: "delivered" } // filter only the delivered orders
+},
+{ $unwind: "$products" }, // unwind the products array
+{
+    $lookup: { // join with the products collection to get the category of each product
+        from: "products",
+        localField: "products.item",
+        foreignField: "_id",
+        as: "product"
     }
-  },
-  { $unwind: "$product" },
-  {
-    $group: {
-      _id: { category: "$product.category", dayOfWeek: { $dayOfWeek: "$createdAt" } },
-      totalSale: { $sum: { $multiply: ["$products.quantity", "$product.price"] } }
+},
+{ $unwind: "$product" }, // unwind the product array
+{
+    $group: { // group by category and sum the total sale amount
+        _id: "$product.category",
+        totalSale: { $sum: "$product.price" }
     }
-  },
-  {
-    $project: {
-      _id: 0,
-      category: "$_id.category",
-      dayOfWeek: "$_id.dayOfWeek",
-      totalSale: 1
-    }
-  },
-  { $sort: { category: 1, dayOfWeek: 1 } }
+},
+{ $sort: { "_id": 1 } } // sort by category name in ascending order
 ]);
-
     
 
 
