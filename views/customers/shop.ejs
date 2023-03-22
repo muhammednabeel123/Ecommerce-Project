@@ -30,7 +30,7 @@
                                     All Categories
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?" name="search" id="search_input">
+                                <input type="text" placeholder="What do yo u need?" onkeyup="filterProducts()" id="search_input">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
@@ -171,7 +171,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="">
                                     <td><img style="height:16rem;width:20rem;" src="/productimage/<%= product[i].Image[0] %>" alt="<%= product[i].Image[0] %>"></td>
                                     <ul class="product__item__pic__hover">
                                         <li><a onclick="addwishlist('<%= product[i]._id %>')"><i class="fa fa-heart"></i></a></li>

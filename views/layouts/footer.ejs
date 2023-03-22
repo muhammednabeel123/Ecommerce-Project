@@ -334,32 +334,31 @@ function a(){
     /*-------------------
 		Quantity change
 	--------------------- */
+ 
     var proQty = $('.pro-qty');
     //  proQty.prepend('<span class="dec qtybtn">-</span>');
 	//  proQty.append('<span class="inc qtybtn">+</span>');
-    proQty.on('click', '.qtybtn', function () {
-        var $button = $(this);
-        var oldValue = $button.parent().find('input').val();
-      
-            // var inputValue = parseFloat(inputVal);
- console.log(newVal,"hey new")
-        if ($button.hasClass('inc')) {
-          
+    var proQty = $('.pro-qty');
+var quantity = parseFloat(document.getElementById('quantitysInstock').value);
+proQty.on('click', '.qtybtn', function () {
+    var $button = $(this);
+    var oldValue = $button.parent().find('input').val();
+    if ($button.hasClass('inc')) {
+        if (oldValue < quantity) {
             var newVal = parseFloat(oldValue) + 1;
-           
         } else {
-            console.log(newVal,"hey ew")
-            // Don't allow decrementing below zero
-            if (oldValue > 1) {
-                var newVal = parseFloat(oldValue) - 1;
-                console.log(oldValue,"hy new")
-            } else {
-                var newVal = parseFloat(oldValue)
-                console.log(oldValue,"hey ew")
-            }
+            newVal = parseFloat(oldValue);
         }
-        $button.parent().find('input').val(newVal);
-    });
+    } else {
+        if (oldValue > 1) {
+            var newVal = parseFloat(oldValue) - 1;
+        } else {
+            newVal = parseFloat(oldValue);
+        }
+    }
+    $button.parent().find('input').val(newVal);
+});
+
 
 })(jQuery);
 
