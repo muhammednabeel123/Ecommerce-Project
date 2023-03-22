@@ -210,7 +210,7 @@ background: #7fad39;
       <div class="col-md-12 col-xl-16">
         <div class="card shadow-0 border rounded-3">
           <div class="card-body">
-            <% console.log(orderData.products[0].item.name) %>
+           
             <% if ( productData.length>0) {
                 for(let i=0;i<productData.length;i++) {
                      %>
@@ -265,7 +265,14 @@ background: #7fad39;
         
         </div >
         <div style="float: right;">
-           <a href="/cancel-order/?id=<%= orderData._id %>" data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" class="btn btn-danger mt-4 ">Cancel Order</button></a>
+          <% if(orderData.order_status === " Cancelled" || orderData.order_status === "returned") { %>
+            <a href="/cancel-order/?id=<%= orderData._id %>" data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" class="btn btn-danger mt-4 " disabled >Cancelled</button></a>
+
+         
+           <% } else { %>
+            <a href="/cancel-order/?id=<%= orderData._id %>" data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" class="btn btn-danger mt-4 ">Cancel Order</button></a>
+            <% } %>
+           
             </div>
             
      

@@ -163,7 +163,7 @@ const orders = await Order.aggregate([{
 
 
 
-console.log(orders,"this order");
+
 
 
     const lineChart = orders.map(order=>order.totalSale)

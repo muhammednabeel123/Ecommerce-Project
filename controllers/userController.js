@@ -47,7 +47,7 @@ const securePassword = async (password) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
 
     }
 }
@@ -83,7 +83,7 @@ const sendVerifyMail = async (name, email, user_id) => {
     }
     catch (error) {
         console.log(error.message)
-next();
+next(error.message);
     }
 
 
@@ -105,7 +105,7 @@ const loadRegister = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
     }
 }
 const insertUSer = async (req, res) => {
@@ -172,7 +172,7 @@ const insertUSer = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
 
     }
 
@@ -190,7 +190,7 @@ const resendOtp = async(req,res,next)=>{
         
     } catch (error) {
        console.log(error.message)
-next(); 
+next(error.message); 
         
     }
 }
@@ -243,7 +243,7 @@ const verifyLogin = async (req,res,next) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         console.log("submit failed 3")
     }
 
@@ -439,7 +439,7 @@ const insertOtp = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
 
     }
 
@@ -451,7 +451,7 @@ const confirmLoadOtp = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
     }
 }
 const verifyOtp = async (req, res) => {
@@ -534,7 +534,7 @@ const verifyOtp = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
 
     }
 
@@ -552,7 +552,7 @@ const loadForgetPassword = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next();
+next(error.message);
 
     }
 
@@ -592,7 +592,7 @@ const forgetVerify = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
 
     }
 
@@ -628,7 +628,7 @@ const sendResetPasswordMail = async (name, email, token) => {
     }
     catch (error) {
         console.log(error.message)
-next();
+next(error.message);
     }
 }
 const forgetPasswordLoad = async (req, res) => {
@@ -658,7 +658,7 @@ const userLogout = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
 
     }
 
@@ -677,7 +677,7 @@ const resetPassword = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-next();
+next(error.message);
 
     }
 }
@@ -759,7 +759,7 @@ const login = async(req,res,next) =>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -859,7 +859,7 @@ const shop = async(req,res,next) =>{
         
     } catch (error) {
         console.log(error.message)
-        next();
+        next(error.message);
         
     }
 }
@@ -871,7 +871,7 @@ const logout = async(req,res,next)=>{
     }
     catch(error){
         console.log(error.message)
-        next();
+        next(error.message);
     }
 }
 const viewProfile = async(req,res,next)=>{
@@ -951,7 +951,7 @@ const viewProfile = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -1012,7 +1012,7 @@ const Address = async(req,res,next) =>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
         
     }
@@ -1052,7 +1052,7 @@ const addAddress = async(req,res,next) =>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 } 
@@ -1107,7 +1107,7 @@ const userProfile = async(req,res,next)=>{
        
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -1149,7 +1149,7 @@ const editProfile = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
     }
 }
 
@@ -1313,7 +1313,7 @@ const viewCart = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -1334,7 +1334,7 @@ try {
 } catch (error) {
 
     console.log(error.message)
-next()
+next(error.message)
     
 }
 
@@ -1412,7 +1412,7 @@ const addWhishList = async(req,res,next)=>{
     } catch (error) {
 
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -1506,7 +1506,7 @@ const loadWhishList = async(req,res,next) =>{
         }
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
     }
 }
 
@@ -1592,7 +1592,7 @@ const increment = async(req,res,next)=>{
     } catch (error) {
         
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -1646,7 +1646,7 @@ const decrement = async(req,res,next)=> {
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
     }
     
 }
@@ -1667,7 +1667,7 @@ const deleteWishList = async(req,res,next)=>{
     } catch (error) {
     
         console.log(error.message)
-next()
+next(error.message)
         
     }
     
@@ -1751,7 +1751,7 @@ const checkout = async(req,res,next)=>{
         }
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
     }
 }
 const postCheckOut = async(req,res,next)=>{
@@ -2263,7 +2263,7 @@ const viewAddress = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2282,7 +2282,7 @@ const deleteAddress = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2475,7 +2475,7 @@ const orderList = async (req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2623,7 +2623,7 @@ const cancelOrder = async(req,res,next)=>{
     } catch (error) {
 
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2662,7 +2662,7 @@ const loadamount = async(req,res,next)=>{
     
    } catch (error) {
     console.log(error.message)
-next()
+next(error.message)
     
    }
 
@@ -2739,7 +2739,7 @@ const postPay = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2752,7 +2752,7 @@ const sortH = async(req,res,next)=>{
         res.json({product:productData})
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2762,7 +2762,7 @@ const sortL = async(req,res,next)=>{
         res.json({product:productData})
     } catch (error) {
         console.log(error)
-        next()
+        next(error.message)
         
     }
 }
@@ -2858,7 +2858,7 @@ const returnReason = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-next()
+next(error.message)
         
     }
 }
@@ -2877,7 +2877,7 @@ const sortH1 = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-        next()
+        next(error.message)
         
     }
 }
@@ -2895,7 +2895,7 @@ const sortL1 = async(req,res,next)=>{
         
     } catch (error) {
         console.log(error.message)
-        next()
+        next(error.message)
         
     }
 }

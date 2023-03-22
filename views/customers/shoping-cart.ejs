@@ -105,7 +105,7 @@
                                                 <input type="text" value="<%= cartData.products[i].quantity %>" id="<%= cartData.products[i].quantity%>" name="quantity" >
                                                 <span class="inc qtybtn" onclick="increment('<%= cartData.products[i].item._id %>')">+</span>
                                                 <input type="hidden" value="<%= cartData.products[i].item.Instock %>" id="quantitysInstock">
-                                                    <% console.log(cartData.products[i].item.Instock) %>
+                                                  
                                             </div>
                                         </div>
                                     </td>
@@ -168,7 +168,12 @@
                                
                             </span></li>
                         </ul>
-                        <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
+                       
+                    
+                   
+                            <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
+
+                            
                     </div>
                 </div>
                 <% } else {  %>

@@ -113,24 +113,7 @@
                         <div class="sidebar__item">
                          
                             <div class="price-range-wrap">
-                                <div class="sidebar__item">
-                                    <h4>Sort</h4>
-                                    <button onclick="sortHtoL1()"><div class="sidebar__item__size">
-                                      <label for="Low to high">
-                                            Low - High
-                                            <input type="radio" id="large">
-                                        </label>
-                                
-                                    </div>
-                                </button>
-                                
-                                <button  stye="border:none" onclick="sortLtoH1()"><div class="sidebar__item__size">
-                                        <label for="tiny">
-                                            High - Low
-                                            <input type="radio" id="tiny">
-                                        </label>
-                                    </div></button>
-                                </div>
+                           
                                
                                 <!-- <div class="range-slider">
                                     <div class="price-input">
@@ -154,7 +137,7 @@
                        <div class="col-lg-4 col-md-6 col-sm-6">
                            
                            <div class="product__item">
-                               <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                               <div class="product__item__pic set-bg" data-setbg="">
                                    <td><img style="height:16rem;width:20rem;" src="/productimage/<%= product[i].Image[0] %>" alt="<%= product[i].Image[0] %>"></td>
                                    <ul class="product__item__pic__hover">
                                        <li><a onclick="addwishlist('<%= product[i]._id %>')"><i class="fa fa-heart"></i></a></li>
@@ -192,12 +175,6 @@
                        
                    </div>
                    
-                    <div  class="product__pagination " style="margin-left:5em;">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div>
                 </div>
             </div>
         </div>
