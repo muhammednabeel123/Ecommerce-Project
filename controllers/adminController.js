@@ -503,19 +503,23 @@ const salesReport = async(req,res)=>{
         console.log(from,to,"you got wat you need")
         
         if (to > from) {
-           let report = await Order.find({created_date:{$gte:from,$lte:to}, payment_status: "Recieved"})
+           let report = await Order.find({createdAt:{$gte:from,$lte:to}, payment_status: "Recieved"})
+           console.log(report)
            
             
             if (report.length > 0) {
+                console.log("reaching");
                 const total = report.map(report => report.total);
                 const totalprice = total.reduce((totalprice, num) => totalprice + num);
                 res.json({success:"sales",report,totalprice})
             } else {
+                console.log("reaching1");
                 const totalprice = 0;
                 const report = 0;
-                res.json({report, totalprice, message: "no sales on this day"});
+                res.json({success:"no sales",report,totalprice});
             }
         } else {
+            console.log("reaching2");
             throw new Error("Invalid date range");
         }
     } catch (error) {
@@ -555,7 +559,7 @@ const exportSales = async(req,res)=>{
            
 
             if(to > from ){
-                let report = await Order.find({created_date:{$gte:from,$lte:to}, payment_status: "Recieved"})
+                let report = await Order.find({createdAt:{$gte:from,$lte:to}, payment_status: "Recieved"})
                
 
                 if(report.length>0){
@@ -595,7 +599,9 @@ const exportSales = async(req,res)=>{
                 }
             }
             else{
-                console.log('hey adihiaa')
+                let totalprice = 0
+                    let report = 0
+                    res.render('sales',{report,totalprice,message:"enter date correctly"})
             }
         } catch (error) {
             console.log(error.message)

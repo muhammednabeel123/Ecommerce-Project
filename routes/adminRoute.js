@@ -117,7 +117,7 @@ admin_route.post('/delete-banner',adminController.deleteBanner)
 
 admin_route.get('/delete-image',auth.isLogin,adminController.deleteImage)
 
-admin_route.get('/sales',auth.isLogin,adminController.loadSales)
+admin_route.get('/sales',adminController.loadSales)
 
 admin_route.post('/sales-report',adminController.salesReport)
 

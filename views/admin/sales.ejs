@@ -99,8 +99,8 @@
 
     $.ajax({
     url: '/admin/sales-report',
-    type: 'post',
-    data: {from, to},
+    method: 'post',
+    data: {from,to},
     success: function(response) {
       if (response.success === 'sales') {
         const report = response.report;
@@ -148,7 +148,11 @@
           cell1.innerHTML = "No sales found";
         }
       }
-    },
+      else if(response.success === 'no sales'){
+        alert('no sales on this day')
+      }
+    }
+    ,
     error: function(jqXHR, textStatus, errorThrown) {
       console.error(errorThrown);
     }
