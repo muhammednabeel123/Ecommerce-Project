@@ -37,7 +37,7 @@ var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twi
 var serviceId = process.env.Service_SID
 
 
-const client = require('twilio')(accountSid, authToken);
+const client = require('twilio')(accountSid,authToken);
 
 const securePassword = async (password) => {
     try {
@@ -409,7 +409,7 @@ const insertOtp = async (req, res) => {
                         client.verify.v2.services(serviceId)
                             .verifications
                             .create({ to: "+91" + Number, channel: 'sms' })
-                            .then(verification => console.log(verification.status));
+                            .then(verification => console.log(verification.status,"there"));
 
 
 
